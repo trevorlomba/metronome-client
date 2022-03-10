@@ -1,5 +1,5 @@
 /* eslint-disable no-tabs */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import './index.scss'
@@ -16,6 +16,12 @@ import Metronome from './components/Metronome/Metronome'
 const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
+  const [tempo, setTempo] = useState(120)
+  const [measures, setMeasures] = useState(4)
+  const [active, setActive] = useState(0)
+
+  console.log(setMeasures)
+  console.log(setTempo)
 
   const clearUser = () => setUser(null)
 
@@ -24,9 +30,51 @@ const App = () => {
     setMsgAlerts(msgAlerts => ([...msgAlerts, { heading, message, variant, id }]))
   }
 
-  let tempo = 120
-  let measures = 4
+  // while (active) {
+  //   setActive(0)
+  // }
 
+  function Timer (callback, timeInterval, errorCallback) {
+    this.timeout = ''
+    this.timeoutID = ''
+    this.timeInterval = timeInterval
+    this.start = () => {
+      this.expected = Date.now() + this.timeInterval
+      this.timeout = setTimeout(this.round, this.timeInterval)
+      this.timeoutID = this.timeout
+      console.log('Started')
+      console.log(this.timeout)
+      return this.timeout
+    }
+    this.stop = () => {
+      console.log(this.timeout)
+      clearTimeout(this.timeout)
+      console.log(this.timeout)
+      console.log('Stopped')
+    }
+    this.round = () => {
+      const drift = Date.now() - this.expected
+      if (drift > this.timeInerval) {
+        errorCallback()
+      }
+      callback()
+      this.expected += this.timeInterval
+      console.log(drift)
+      console.log(this.timeInterval - drift)
+      console.log(this.timeout)
+      this.timeout = setTimeout(this.round, this.timeInterval - drift)
+    }
+    this.nah = () => {
+      console.log('nah' * 50)
+    }
+  }
+  // console.log(myTimer)
+  // myTimer.start()
+  // let tempo = 120
+  // let measures = 4
+
+  // const click1 = new Audio('/click1.wav')
+  // const click2 = new Audio('/click2.wav')
   const tempoDisplay = document.querySelector('.tempo')
   console.log(tempoDisplay)
   const tempoText = document.querySelector('.tempo-text')
@@ -50,56 +98,85 @@ const App = () => {
   const beatsDisplay = document.querySelector('.beats-display')
   console.log(beatsDisplay)
 
+  // if (active === 1) { myTimer.start() }
+  // if (active === 0) { myTimer.stop() }
+
+  const newTimer = new Timer(() => true, 1000)
+  console.log(newTimer)
+
   const decreaseTempo = () => {
-    console.log(tempo)
-    if (tempo <= 20) {
+    if (tempo < 20) {
       return true
     } else {
-      tempo--
-      BpmDisplay.innerHTML = tempo
-      // tempoSlider.value = tempo
+      setTempo(tempo => tempo - 1)
     }
   }
 
   const increaseTempo = () => {
-    console.log(tempo)
-    if (tempo >= 240) {
+    if (tempo > 240) {
       return true
     } else {
-      tempo++
-      BpmDisplay.innerHTML = tempo
-      // tempoSlider.value = tempo
+      setTempo(tempo => tempo + 1)
     }
   }
 
   const decreaseBeats = () => {
-    console.log(tempo)
     if (measures <= 2) {
       return true
     } else {
-      measures--
-      beatsDisplay.innerHTML = measures
-      console.log(measures)
-    // tempoSlider.value = tempo
+      setMeasures(measures => measures - 1)
     }
   }
 
   const increaseBeats = () => {
-    console.log(measures)
     if (measures >= 8) {
       return true
     } else {
-      measures++
-      beatsDisplay.innerHTML = measures
-      console.log(measures)
-    // tempoSlider.value = tempo
+      setMeasures(measures => measures + 1)
     }
   }
 
   const slideTempo = () => {
-    tempo = tempoSlider.value
-    BpmDisplay.innerHTML = tempo
+    setTempo(parseInt(tempoSlider.value))
   }
+
+  const myTimer = new Timer(() => { console.log('it ran!') }, 1000)
+  const toggleTimer = () => {
+    let stat = active
+    switch (active) {
+    case 0:
+      stat = 1
+      // myTimer.start()
+      break
+    default:
+      stat = 0
+      // myTimer.stop()
+      break
+    }
+    setActive(stat)
+  }
+  // if (active === 0) {
+  //   myTimer.stop()
+  // } else {
+  //   myTimer.start()
+  // }
+  // console.log(myTimer)
+
+  // const stopTimer = () => {
+  //   myTimer.start()
+  // }
+  // console.log(startTimer)
+  // console.log(stopTimer)
+  useEffect(() => {
+    myTimer.stop()
+    // console.log('success')
+    // // why can't i construct this object
+    // const myTimer = new Timer(() => { console.log('it ran!') }, 1000)
+    return () => {
+      myTimer.start()
+      console.log('unmounted')
+    }
+  }, [active])
 
   return (
     <>
@@ -136,10 +213,17 @@ const App = () => {
       </main>
       <div className="parent">
         <div className="home">
-          <Metronome className="metronome" tempo={tempo} measures={measures} decreaseTempo={decreaseTempo} increaseTempo={increaseTempo} increaseBeats={increaseBeats} decreaseBeats={decreaseBeats} slideTempo={slideTempo}></Metronome>
-          <button className="decrease-tempo"></button>
+          <Metronome className="metronome"
+            tempo={tempo}
+            measures={measures}
+            decreaseTempo={decreaseTempo}
+            increaseTempo={increaseTempo}
+            increaseBeats={increaseBeats}
+            decreaseBeats={decreaseBeats}
+            slideTempo={slideTempo}
+            toggleTimer={toggleTimer}
+            active={active}></Metronome>
         </div>
-        <div></div>
       </div>
     </>
   )
