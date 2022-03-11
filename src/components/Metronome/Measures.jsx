@@ -21,6 +21,7 @@ const Measures = (props) => {
         <AdjustBeats className="adjust stepper" text="-" onClick = {decreaseBeats}></AdjustBeats>
         <span className='beats-display'> {props.measures} </span>
         <AdjustBeats className="adjust stepper" text="+" onClick = {increaseBeats}></AdjustBeats>
+        <div className='counter'><span>{props.counter + 1}</span></div>
       </div>
     </>
   )

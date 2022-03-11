@@ -155,6 +155,8 @@ const App = () => {
       <div className="parent">
         <div className="home">
           <Metronome className="metronome"
+            setTempo={setTempo}
+            setMeasures={setMeasures}
             tempo={tempo}
             measures={measures}
             decreaseTempo={decreaseTempo}
