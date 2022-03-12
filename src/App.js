@@ -154,7 +154,7 @@ const App = () => {
             path='/change-password'
             element={<ChangePassword msgAlert={msgAlert} user={user} /> }
           />
-          <Route
+          <Route className = "presets"
             path='/settings'
             element={<PresetForm user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} /> }
           />

@@ -261,9 +261,8 @@ const Metronome = (props) => {
 
   return (
     <>
-      {props.notesBucket.join(' ').toUpperCase()}
-      {props.checkedState}
       <RandomNote counter={props.counter} measures={props.measures} currentNote={currentNote} randomNote={randomNote} setRandomNote={setRandomNote}/>
+      <div className = "notes">{props.notesBucket.join(' ').toUpperCase()}</div>
       <div><BpmDisplay tempo={props.tempo}></BpmDisplay></div>
       <div><TempoSlider onChange={props.slideTempo} className="tempo-settings" tempo={props.tempo} decreaseTempo={props.decreaseTempo} increaseTempo={props.increaseTempo}></TempoSlider></div>
       <div><Measures className="measures" counter={props.counter} measures={props.measures} increaseBeats={props.increaseBeats} decreaseBeats={props.decreaseBeats}></Measures></div>

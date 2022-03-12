@@ -3,7 +3,7 @@ import React from 'react'
 const RandomNote = (props) => {
   return (
     <>
-      <h1>{props.currentNote.toUpperCase()} {'-> '}{props.randomNote.toUpperCase()}</h1>
+      <div className = "notes-walk">{props.currentNote.toUpperCase()} {'-> '}{props.randomNote.toUpperCase()}</div>
       {/* <h1>{props.currentNote} {'-' + '-'.repeat((props.counter))}{'> '}{props.randomNote}</h1> */}
     </>
   )

@@ -32,7 +32,7 @@ const settings = (
 
 const Header = ({ user }) => (
   <>
-    <Navbar bg='primary' variant='dark' expand='md'>
+    <Navbar className="color-nav" variant='dark' expand='md'>
       <Container>
         <Navbar.Brand>
           <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>metronome</Link>
@@ -51,8 +51,8 @@ const Header = ({ user }) => (
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    <Navbar bg='primary' variant='dark' expand='md'>
-    </Navbar>
+    {/* <Navbar bg='primary' variant='dark' expand='md'>
+    </Navbar> */}
   </>
 )
 

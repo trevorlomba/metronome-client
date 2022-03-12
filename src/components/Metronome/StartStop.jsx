@@ -2,7 +2,7 @@ import React from 'react'
 
 const StartStop = (props) => (
   <>
-    <button onClick = {props.toggleTimer}>{props.total + 1}</button>
+    <button className="start-stop" onClick = {props.toggleTimer}>{props.total}</button>
   </>
 )
 

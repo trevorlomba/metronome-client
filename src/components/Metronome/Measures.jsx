@@ -16,13 +16,13 @@ const Measures = (props) => {
 
   return (
     <>
-
+      <div className="bpm-display ">{props.tempo}</div>
       <div className="measures-count">
-        <AdjustBeats className="adjust stepper" text="-" onClick = {decreaseBeats}></AdjustBeats>
+        <AdjustBeats className="adjust stepper subtract-beats" text="-" onClick = {decreaseBeats}></AdjustBeats>
         <span className='beats-display'> {props.measures} </span>
-        <AdjustBeats className="adjust stepper" text="+" onClick = {increaseBeats}></AdjustBeats>
-        <div className='counter'><span>{props.counter + 1}</span></div>
+        <AdjustBeats className="adjust stepper add-beats" text="+" onClick = {increaseBeats}></AdjustBeats>
       </div>
+      <div className='counter'><div>{props.counter + 1}</div></div>
     </>
   )
 }
