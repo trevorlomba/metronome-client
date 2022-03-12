@@ -24,24 +24,36 @@ const alwaysOptions = (
   </>
 )
 
+const settings = (
+  <>
+    <NavLink to='/settings' className='nav-link'>Settings</NavLink>
+  </>
+)
+
 const Header = ({ user }) => (
-  <Navbar bg='primary' variant='dark' expand='md'>
-    <Container>
-      <Navbar.Brand>
-        <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>metronome</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls='basic-navbar-nav' />
-      <Navbar.Collapse id='basic-navbar-nav'>
-        <Nav className='ms-auto'>
-          {user && (
-            <span className='navbar-text me-2'>Welcome, {user.email}</span>
-          )}
-          {alwaysOptions}
-          {user ? authenticatedOptions : unauthenticatedOptions}
+  <>
+    <Navbar bg='primary' variant='dark' expand='md'>
+      <Container>
+        <Navbar.Brand>
+          <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>metronome</Link>
+        </Navbar.Brand><Nav className='ms-auto'>
+          {settings}
         </Nav>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
+        {/* <Navbar.Toggle aria-controls='basic-navbar-nav' /> */}
+        <Navbar.Collapse id='basic-navbar-nav'>
+          <Nav className='ms-auto'>
+            {user && (
+              <span className='navbar-text me-2'>Welcome, {user.email}</span>
+            )}
+            {alwaysOptions}
+            {user ? authenticatedOptions : unauthenticatedOptions}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+    <Navbar bg='primary' variant='dark' expand='md'>
+    </Navbar>
+  </>
 )
 
 export default Header

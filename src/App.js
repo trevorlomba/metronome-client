@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
+import './index.scss'
 
 import AutoDismissAlert from './components/AutoDismissAlert/AutoDismissAlert'
 import Header from './components/Header/Header'
@@ -10,9 +11,21 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 
+import Metronome from './components/Metronome/Metronome'
+import PresetForm from './components/Presets/PresetForm'
+
 const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
+  const [tempo, setTempo] = useState(120)
+  const [measures, setMeasures] = useState(4)
+  const [active, setActive] = useState(0)
+  const [checkedState, setCheckedState] = useState([true, true, true, true, true, true, true, true, true, true, true, true])
+  const [total, setTotal] = useState(0)
+  const [notesBucket, setNotesBucket] = useState(['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#'])
+  const [counter, setCounter] = useState(1)
+  console.log(setMeasures)
+  console.log(setTempo)
 
   const clearUser = () => setUser(null)
 
@@ -20,6 +33,96 @@ const App = () => {
     const id = uuid()
     setMsgAlerts(msgAlerts => ([...msgAlerts, { heading, message, variant, id }]))
   }
+
+  const tempoDisplay = document.querySelector('.tempo')
+  console.log(tempoDisplay)
+  const tempoText = document.querySelector('.tempo-text')
+  console.log(tempoText)
+  const decreaseTempoBtn = document.querySelector('.decrease-tempo')
+  console.log(decreaseTempoBtn)
+  const increaseTempoBtn = document.querySelector('.increase-tempo-button')
+  console.log(increaseTempoBtn)
+  const tempoSlider = document.querySelector('.slider')
+  console.log(tempoSlider)
+  const startStopBtn = document.querySelector('.start-stop-button')
+  console.log(startStopBtn)
+  const subtractBeats = document.querySelector('.subtract-beats')
+  console.log(subtractBeats)
+  // const addBeats = document.querySelector('.add-beats')
+  // console.log(addBeats)
+  const BpmDisplayElement = document.querySelector('.bpm-display')
+  console.log(BpmDisplayElement)
+  const metronome = { but: 'that' }
+  console.log(metronome)
+  const beatsDisplay = document.querySelector('.beats-display')
+  console.log(beatsDisplay)
+  // while (active) {
+  //   setActive(0)
+  // }
+
+  const decreaseTempo = () => {
+    if (tempo < 20) {
+      return true
+    } else {
+      setTempo(tempo => tempo - 1)
+    }
+  }
+
+  const increaseTempo = () => {
+    if (tempo > 240) {
+      return true
+    } else {
+      setTempo(tempo => tempo + 1)
+    }
+  }
+
+  const decreaseBeats = () => {
+    if (measures <= 2) {
+      return true
+    } else {
+      setMeasures(measures => measures - 1)
+    }
+  }
+
+  const increaseBeats = () => {
+    if (measures >= 8) {
+      return true
+    } else {
+      setMeasures(measures => measures + 1)
+    }
+  }
+
+  const slideTempo = () => {
+    setTempo(parseInt(tempoSlider.value))
+  }
+
+  const toggleTimer = () => {
+    let stat = active
+    switch (active) {
+    case 0:
+      stat = 1
+      // myTimer.start()
+      break
+    default:
+      stat = 0
+      // myTimer.stop()
+      break
+    }
+    setActive(stat)
+    setTotal(0)
+  }
+  // if (active === 0) {
+  //   myTimer.stop()
+  // } else {
+  //   myTimer.start()
+  // }
+  // console.log(myTimer)
+
+  // const stopTimer = () => {
+  //   myTimer.start()
+  // }
+  // console.log(startTimer)
+  // console.log(stopTimer)
 
   return (
     <>
@@ -51,9 +154,41 @@ const App = () => {
             path='/change-password'
             element={<ChangePassword msgAlert={msgAlert} user={user} /> }
           />
+          <Route
+            path='/settings'
+            element={<PresetForm user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} /> }
+          />
 
         </Routes>
       </main>
+      <div className="parent">
+        {checkedState}
+        <div className="home">
+          <Metronome className="metronome"
+            setTempo={setTempo}
+            setMeasures={setMeasures}
+            tempo={tempo}
+            measures={measures}
+            decreaseTempo={decreaseTempo}
+            increaseTempo={increaseTempo}
+            increaseBeats={increaseBeats}
+            decreaseBeats={decreaseBeats}
+            slideTempo={slideTempo}
+            toggleTimer={toggleTimer}
+            user={user}
+            counter={counter}
+            setCounter={setCounter}
+            notesBucket = {notesBucket}
+            setNotesBucket = {setNotesBucket}
+            checkedState={checkedState}
+            setCheckedState={setCheckedState}
+            total={total}
+            setTotal={setTotal}
+            // setCounter = {setCounter}
+            // addResource={addResource}
+            active={active}></Metronome>
+        </div>
+      </div>
     </>
   )
 }
