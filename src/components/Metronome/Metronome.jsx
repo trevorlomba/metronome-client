@@ -5,22 +5,18 @@ import TempoSlider from './TempoSlider'
 import Measures from './Measures'
 import BpmDisplay from './BpmDisplay'
 import StartStop from './StartStop'
-import PresetForm from '../Presets/PresetForm'
+// import PresetForm from '../Presets/PresetForm'
 import RandomNote from '../Metronome/RandomNote'
 
 import '../../index.scss'
 
 const Metronome = (props) => {
-  const [counter, setCounter] = useState(1)
-  const [currentNote, setCurrentNote] = useState('F')
-  const [randomNote, setRandomNote] = useState('C')
+  // const [presetIndex] = useState(0)
+  const [currentNote, setCurrentNote] = useState(props.notesBucket[Math.floor(Math.random() * 12)])
+  const [randomNote, setRandomNote] = useState(props.notesBucket[Math.floor(Math.random() * 12)])
   const [first, setFirst] = useState(true)
-  const [checkedState, setCheckedState] = useState(
-    new Array(12).fill(true)
-  )
-  const [notesBucket, setNotesBucket] = useState(['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#'])
-  const [presets, setPresets] = useState([{ name: 'that', tempo: 120, notes: ['a', 'd'], measures: 4 }, { name: 'this', tempo: 20, notes: ['f', 'e'], measures: 3 }])
-  const [presetIndex, setPresetIndex] = useState(0)
+  // setCurrentNote(props.notesBucket)
+  // setRandomNote(props.notesBucket)
   // const [intervalID,  setIntervalID] = useState(0)
   // const toggleTimer = () => {
   //   props.toggleTimer()
@@ -88,45 +84,39 @@ const Metronome = (props) => {
   // console.log(stopTimer)
   // useEffect(() => {
   // })
-  const rand = Math.floor(Math.random() * notesBucket.length)
+  const rand = Math.floor(Math.random() * props.notesBucket.length)
   const allNotes = ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#']
   const interval = ''
   console.log(interval)
 
-  const loadPreset = (index) => {
-    console.log(index)
-    props.setTempo(presets[index].tempo)
-    props.setMeasures(presets[index].measures)
-    setCheckedState(presets[index].notes)
-  }
-
   useEffect((interval) => {
-    if (notesBucket.length > 0) {
-      if (counter % props.measures === 0 && counter > 0) {
+    if (props.notesBucket.length > 0) {
+      if (props.counter % props.measures === 0 && props.counter > 0) {
         if (first) {
           setFirst(true)
-          setRandomNote(notesBucket[rand])
+          setRandomNote(props.notesBucket[rand])
           setCurrentNote(randomNote)
         }
-        setCounter(0)
+        props.setCounter(0)
         // setFirst(false)
         console.log(props.measures)
-        console.log(counter)
+        console.log(props.setNotesBucket)
         console.log(first)
-        console.log(props.measures % counter)
+        console.log(props.measures % props.setNotesBucket)
       }
       if (props.active) {
         interval = setInterval(() => {
-          setCounter(counter + 1)
+          props.setTotal(props.total + 1)
+          props.setCounter(props.counter + 1)
           console.log(props.tempo)
           console.log(props.tempo * 60)
-          console.log(counter)
+          console.log(props.setNotesBucket)
         }, 60000 / props.tempo)
       // console.log(interval)
       // setIntervalID(interval)
       }
       return () => {
-        // setCounter(0)
+        // props.setCounter(0)
         clearInterval(interval)
       }
     }
@@ -135,15 +125,15 @@ const Metronome = (props) => {
 
   useEffect(() => {
     clearInterval(interval)
-    setCounter(0)
+    props.setCounter(0)
   }, [props.active])
 
   useEffect(() => {
     let i
-    const arr = []
     console.log(i)
+    const arr = []
     // console.log(arr)
-    checkedState.map((note, i) => {
+    props.checkedState.map((note, i) => {
       i++
       if (note) {
         arr.push(allNotes[i - 1])
@@ -153,14 +143,15 @@ const Metronome = (props) => {
       return allNotes[i]
     })
     console.log(arr)
-    setNotesBucket(arr)
-  }, [checkedState, presetIndex])
+    props.setNotesBucket(arr)
+    console.log(props.notesBucket)
+  }, [props.checkedState])
   // }, [props.active === 1])
   // l
   // const startMetronome = (event) => {
   //   event.preventDefault()
   //   const interval = setInterval(() => {
-  //     setCounter(timer + 1)
+  //     props.setCounter(timer + 1)
   //     console.log(props.tempo)
   //     console.log(props.tempo * 60)
   //     console.log(timer)
@@ -174,7 +165,7 @@ const Metronome = (props) => {
   // }
   // const resetCount = (event) => {
   //   event.preventDefault()
-  //   // setCounter(0)
+  //   // props.setCounter(0)
   // }
   // useEffect((callback = () => console.log('yup'), tempo = props, errorCallback) => {
   //   let timeout
@@ -268,21 +259,20 @@ const Metronome = (props) => {
   // }, [props.active])
   // console.log(myTimer)
 
-  console.log(loadPreset)
-  console.log(setPresets)
   return (
     <>
-      <RandomNote counter={counter} measures={props.measures} currentNote={currentNote} randomNote={randomNote} setRandomNote={setRandomNote}/>
+      {props.notesBucket.join(' ').toUpperCase()}
+      {props.checkedState}
+      <RandomNote counter={props.counter} measures={props.measures} currentNote={currentNote} randomNote={randomNote} setRandomNote={setRandomNote}/>
       <div><BpmDisplay tempo={props.tempo}></BpmDisplay></div>
       <div><TempoSlider onChange={props.slideTempo} className="tempo-settings" tempo={props.tempo} decreaseTempo={props.decreaseTempo} increaseTempo={props.increaseTempo}></TempoSlider></div>
-      <div><Measures className="measures" counter={counter} measures={props.measures} increaseBeats={props.increaseBeats} decreaseBeats={props.decreaseBeats}></Measures></div>
-      <div><StartStop toggleTimer={props.toggleTimer} active={props.active}/></div>
-      <PresetForm setPresetIndex = {setPresetIndex} loadPreset={loadPreset} measures={props.measures} notesBucket={notesBucket} tempo={props.tempo} measure={props.measures} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState}/>
+      <div><Measures className="measures" counter={props.counter} measures={props.measures} increaseBeats={props.increaseBeats} decreaseBeats={props.decreaseBeats}></Measures></div>
+      <div><StartStop toggleTimer={props.toggleTimer} total = {props.total} active={props.active}/></div>
+      {/* <PresetForm user={props.user} setPresetIndex = {setPresetIndex} loadPreset={loadPreset} measures={props.measures} setMeasures={props.setMeasures} props.notesBucket={props.notesBucket} tempo={props.tempo} setTempo={props.setTempo} counter={counter} setCheckedState={props.setCheckedState} checkedState={props.checkedState}/> */}
       {/* <PresetForm tempo={props.tempo} measure={props.measures} timer={timer} onSubmit={resetCount}/> */}
       {/* <PresetForm tempo={props.tempo} measure={props.measures} timer={timer} onSubmit={startMetronome}/> */}
       {/* <PresetForm tempo={props.tempo} measure={props.measures} timer={timer} onSubmit={stopMetronome}/> */}
       {/* <div><StartStop toggleTimer={addResource} active={props.active}/></div> */}
-      {checkedState}
     </>
   )
 }

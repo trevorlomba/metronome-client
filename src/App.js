@@ -12,6 +12,7 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 
 import Metronome from './components/Metronome/Metronome'
+import PresetForm from './components/Presets/PresetForm'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -19,7 +20,10 @@ const App = () => {
   const [tempo, setTempo] = useState(120)
   const [measures, setMeasures] = useState(4)
   const [active, setActive] = useState(0)
-
+  const [checkedState, setCheckedState] = useState([true, true, true, true, true, true, true, true, true, true, true, true])
+  const [total, setTotal] = useState(0)
+  const [notesBucket, setNotesBucket] = useState(['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#'])
+  const [counter, setCounter] = useState(1)
   console.log(setMeasures)
   console.log(setTempo)
 
@@ -105,6 +109,7 @@ const App = () => {
       break
     }
     setActive(stat)
+    setTotal(0)
   }
   // if (active === 0) {
   //   myTimer.stop()
@@ -149,10 +154,15 @@ const App = () => {
             path='/change-password'
             element={<ChangePassword msgAlert={msgAlert} user={user} /> }
           />
+          <Route
+            path='/settings'
+            element={<PresetForm user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} /> }
+          />
 
         </Routes>
       </main>
       <div className="parent">
+        {checkedState}
         <div className="home">
           <Metronome className="metronome"
             setTempo={setTempo}
@@ -165,6 +175,16 @@ const App = () => {
             decreaseBeats={decreaseBeats}
             slideTempo={slideTempo}
             toggleTimer={toggleTimer}
+            user={user}
+            counter={counter}
+            setCounter={setCounter}
+            notesBucket = {notesBucket}
+            setNotesBucket = {setNotesBucket}
+            checkedState={checkedState}
+            setCheckedState={setCheckedState}
+            total={total}
+            setTotal={setTotal}
+            // setCounter = {setCounter}
             // addResource={addResource}
             active={active}></Metronome>
         </div>
