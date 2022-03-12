@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/metronome-client/static/css/main.a4acf183.chunk.css",
+    "main.js": "/metronome-client/static/js/main.b6672e6a.chunk.js",
+    "main.js.map": "/metronome-client/static/js/main.b6672e6a.chunk.js.map",
+    "runtime-main.js": "/metronome-client/static/js/runtime-main.3a735b88.js",
+    "runtime-main.js.map": "/metronome-client/static/js/runtime-main.3a735b88.js.map",
+    "static/js/2.2c417b7e.chunk.js": "/metronome-client/static/js/2.2c417b7e.chunk.js",
+    "static/js/2.2c417b7e.chunk.js.map": "/metronome-client/static/js/2.2c417b7e.chunk.js.map",
+    "index.html": "/metronome-client/index.html",
+    "static/css/main.a4acf183.chunk.css.map": "/metronome-client/static/css/main.a4acf183.chunk.css.map",
+    "static/js/2.2c417b7e.chunk.js.LICENSE.txt": "/metronome-client/static/js/2.2c417b7e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3a735b88.js",
+    "static/js/2.2c417b7e.chunk.js",
+    "static/css/main.a4acf183.chunk.css",
+    "static/js/main.b6672e6a.chunk.js"
+  ]
+}
