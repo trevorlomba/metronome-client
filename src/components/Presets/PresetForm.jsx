@@ -69,6 +69,7 @@ const PresetForm = (props) => {
       0
     ]
   ]])
+  console.log(presets[0])
   const [presetName, setPresetName] = useState('default')
 
   // const [date] = useState(formatDate())
@@ -126,8 +127,8 @@ const PresetForm = (props) => {
       checks: props.checkedState,
       measures: props.measures,
       tempo: props.tempo,
-      name: presetName,
       id: presets[presetIndex - 1][2][1],
+      name: presetName,
       notes: extractNotes(props.checkedState),
       index: presetIndex
     }
@@ -264,7 +265,7 @@ const PresetForm = (props) => {
         {/* {presetName} */}
         {/* {props.tempo} */}
         <b> select a preset </b>
-        <DropDown extractNotes={extractNotes} presets={presets} tempo={props.tempo}setPresetIndex={setPresetIndex}/>
+        <DropDown extractNotes={extractNotes} presets={presets} tempo={props.tempo}setPresetIndex={setPresetIndex} setPresets={setPresets}/>
         <div><button name='load' type='submit'>Load</button><button name='edit' type='submit'>Update</button><button name='delete' type='submit'>Delete</button></div><input id='presetName' value={presetName} onChange = {handlePresetNameChange}></input><button name='post' type='submit'>Save As</button>
       </form>
     </>
