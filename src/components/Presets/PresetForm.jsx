@@ -1,9 +1,11 @@
-import axios from 'axios'
+// import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 // import { Link } from 'react-router-dom'
-import apiUrl from '../../apiConfig'
-import { createPreset, deletePreset, updatePreset, loadPreset } from '../../api/presets'
+// import apiUrl from '../../apiConfig'
+import { createPreset, deletePreset, deleteAllPresets, updatePreset, loadPreset } from '../../api/presets'
 import DropDown from './DropDown'
+import axios from 'axios'
+import apiUrl from '../../apiConfig'
 
 // import { Link } from 'react-router-dom'
 // const formatDate = () => {
@@ -14,62 +16,83 @@ import DropDown from './DropDown'
 
 const PresetForm = (props) => {
   const [presetIndex, setPresetIndex] = useState(1)
-  const [presets, setPresets] = useState([[
-    [
-      'checks',
-      [true, true, true, true, true, true, true, true, true, true, true, true]
+  // const [presets, setPresets] = useState(['h'])
+  const [presets, setPresets] = useState([{
+    checks: [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
     ],
-    [
-      'notes',
-      [
-        'a/',
-        'a#/',
-        'b/',
-        'c/',
-        'c#/',
-        'd/',
-        'd#/',
-        'e/',
-        'f/',
-        'f#/',
-        'g/',
-        'g#/'
-      ]
+    notes: [
+      'a/',
+      'a#/',
+      'b/',
+      'c/',
+      'c#/',
+      'd/',
+      'd#/',
+      'e/',
+      'f/',
+      'f#/',
+      'g/',
+      'g#/'
     ],
-    [
-      '_id',
-      '622bfed04c5a29dcf7fa84a1'
+    _id: '622f6f091019458ad09a8f50',
+    owner: '622f5f531019458ad09a8eee',
+    measures: 4,
+    tempo: 120,
+    name: 'default',
+    createdAt: '2022-03-14T16:36:25.833Z',
+    updatedAt: '2022-03-14T16:36:25.833Z',
+    __v: 0
+  }, {
+    checks: [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
     ],
-    [
-      'owner',
-      '622bb9e4831bd2aba0ca0d17'
+    notes: [
+      'a/',
+      'a#/',
+      'b/',
+      'c/',
+      'c#/',
+      'd/',
+      'd#/',
+      'e/',
+      'f/',
+      'f#/',
+      'g/',
+      'g#/'
     ],
-    [
-      'measures',
-      4
-    ],
-    [
-      'tempo',
-      120
-    ],
-    [
-      'name',
-      'default'
-    ],
-    [
-      'createdAt',
-      '2022-03-12T02:00:48.921Z'
-    ],
-    [
-      'updatedAt',
-      '2022-03-12T02:00:48.921Z'
-    ],
-    [
-      '__v',
-      0
-    ]
-  ]])
-  console.log(presets[0])
+    _id: '622f6f091019458ad09a8f50',
+    owner: '622f5f531019458ad09a8eee',
+    measures: 4,
+    tempo: 120,
+    name: 'default',
+    createdAt: '2022-03-14T16:36:25.833Z',
+    updatedAt: '2022-03-14T16:36:25.833Z',
+    __v: 0
+  }])
+  console.log(presets)
   const [presetName, setPresetName] = useState('default')
 
   // const [date] = useState(formatDate())
@@ -93,30 +116,62 @@ const PresetForm = (props) => {
   //   props.setMeasures(presets[index].measures)
   //   props.setCheckedState(presets[index].notes)
   // }
+  const loadAllPresets = (user) => {
+    try {
+      axios
+        .get(`${apiUrl}/presets`, {
+          params: {
+            // owner: user.token
+            _id: '622be6a5c8a0d5b0d537f939'
+          }
+        })
+        .then(response => {
+          console.log(response.data.presets)
+          console.log(response)
+          console.log(presets)
+          const presetsArray = Object.entries(response.data.presets)
+          const newPresets = [...presets, presetsArray[4][1]]
+          console.log(typeof presetsArray)
+          console.log(presetsArray[4][1])
+          console.log(presets)
+          setPresets(newPresets)
+          console.log(presets)
+        })
+    } catch (error) { console.error(error) }
+  }
+
   useEffect(() => {
-    axios
-      .get(`${apiUrl}/presets`)
-      .then(response => addToPresets(response))
-      .catch(console.error)
+    loadAllPresets(props.user)
   }, [])
+
   let presetsList
   console.log(presetsList)
   useEffect((presetsList) => {
     console.log('ran')
-    presetsList = presets.name?.map(preset => (
-      <li key={preset}>
+    console.log(presets)
+    presetsList = presets.map((preset) => (
+      <li key={preset._id}>
         {preset}
       </li>))
     console.log(presetsList)
     return presetsList
   })
   console.log(presetsList)
+
   const addToPresets = response => {
     const newPreset = response.data.preset
+    const newPresets = presets
     console.log(newPreset)
     console.log(presets)
     // console.log(...presets, newPreset)
-    setPresets([...presets, Object.entries(newPreset)])
+    // setPresets(...presets, newPreset)
+    console.log(presets)
+    console.log([presets])
+    console.log(newPresets)
+    console.log(typeof presets)
+    console.log(typeof [presets])
+    console.log(typeof newPresets)
+    // setPresets(newPresets.push(newPreset))
     console.log(presets)
   }
 
@@ -127,7 +182,7 @@ const PresetForm = (props) => {
       checks: props.checkedState,
       measures: props.measures,
       tempo: props.tempo,
-      id: presets[presetIndex - 1][2][1],
+      id: presets,
       name: presetName,
       notes: extractNotes(props.checkedState),
       index: presetIndex
@@ -260,13 +315,15 @@ const PresetForm = (props) => {
             )
           })}
         </div>
-        {/* {presets[1]} */}
         {/* {document.querySelector} */}
-        {/* {presetName} */}
+        {presetsList}
         {/* {props.tempo} */}
         <b> select a preset </b>
         <DropDown extractNotes={extractNotes} presets={presets} tempo={props.tempo}setPresetIndex={setPresetIndex} setPresets={setPresets}/>
         <div><button name='load' type='submit'>Load</button><button name='edit' type='submit'>Update</button><button name='delete' type='submit'>Delete</button></div><input id='presetName' value={presetName} onChange = {handlePresetNameChange}></input><button name='post' type='submit'>Save As</button>
+      </form>
+      <form onSubmit = {deleteAllPresets}>
+        <button type='submit'>delete all</button>
       </form>
     </>
   )

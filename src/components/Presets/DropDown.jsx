@@ -29,31 +29,57 @@ const DropDown = props => {
   //   }
   //   )
   useEffect(() => {
-    if (props.presets) {
-      const presetsArray = props.presets?.map((preset, i = 0) => {
-        i++
-        return (
-          <option key = {preset._id}>{i}.{preset[6][1]}_{preset[5][1]}/{preset[4][1]}_{preset[1][1]}_{preset[2][1]}</option>
-        )
-        // return (
-        //   <option key = {preset._id}>{i}. {preset[2][1]}_{preset[5][1]}/{preset[4][1]}_{preset[1][1]}_{preset[2][1]}</option>
-        // )
-      })
-      return presetsArray
-    }
+    console.log(presets)
+    // const presetsArray = props.presets?.map((preset, i = 0) => {
+    //   i++
+    //   return (
+    //     <option key = {preset._id}>{i}.{preset[6][1]}_{preset[5][1]}/{preset[4][1]}_{preset[1][1]}_{preset[2][1]}</option>
+    //   )
+    //
+    //
+    //
+    // return (
+    //   <option key = {preset._id}>{i}. {preset[2][1]}_{preset[5][1]}/{preset[4][1]}_{preset[1][1]}_{preset[2][1]}</option>
+    // )
+    // })
   }, [presets])
 
   return (
     <>
+      <div>{props.presets.map(({ name, tempo, measures, notes }, i = 0) => {
+        console.log(presets)
+        i++
+        console.log(presets[i])
+        return (
+          <>
+            {console.log(presets)}
+            {console.log(presets)}
+            {console.log()}
+            <p>Name: {name}__{tempo}/{measures}__{notes}</p>
+          </>
+        )
+      })}</div>
       <div key={props.presets.length}>
         {/* <h2>{props.presets[1]}</h2> */}
         {/* <h2>{() => presetsList}</h2> */}
         {/* <h2>{presetsList}</h2> */}
         {/* {props.presets[4]} */}
-        {props.presets}
+        {/* {props.presets} */}
         <select id = "preset-dropdown" onChange={() => props.setPresetIndex(document.getElementById('preset-dropdown').selectedIndex)}>
           <option hidden>Select A Preset</option>
-          {props.presets}
+          {props.presets.map(({ name, tempo, measures, notes }, i = 0) => {
+            console.log(presets)
+            i++
+            console.log(presets[i])
+            return (
+              <>
+                {console.log(presets)}
+                {console.log(presets)}
+                {console.log()}
+                <option>Name: {name}__{tempo}/{measures}__{notes}</option>
+              </>
+            )
+          })}
         </select>
       </div>
     </>
