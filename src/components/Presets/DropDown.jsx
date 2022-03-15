@@ -42,19 +42,19 @@ const DropDown = props => {
     //   <option key = {preset._id}>{i}. {preset[2][1]}_{preset[5][1]}/{preset[4][1]}_{preset[1][1]}_{preset[2][1]}</option>
     // )
     // })
-  }, [presets])
+  }, [])
 
   return (
     <>
       <div>{props.presets.map(({ name, tempo, measures, notes }, i = 0) => {
-        console.log(presets)
+        // console.log(presets)
         i++
-        console.log(presets[i])
+        // console.log(presets[i])
         return (
           <>
+            {/* {console.log(presets)}
             {console.log(presets)}
-            {console.log(presets)}
-            {console.log()}
+            {console.log()} */}
             <p>Name: {name}__{tempo}/{measures}__{notes}</p>
           </>
         )
@@ -65,17 +65,21 @@ const DropDown = props => {
         {/* <h2>{presetsList}</h2> */}
         {/* {props.presets[4]} */}
         {/* {props.presets} */}
-        <select id = "preset-dropdown" onChange={() => props.setPresetIndex(document.getElementById('preset-dropdown').selectedIndex)}>
+        <select id = "preset-dropdown" onChange={() => {
+          console.log(document.getElementById('preset-dropdown').selectedIndex)
+          props.setPresetIndex(document.getElementById('preset-dropdown').selectedIndex - 1)
+        }
+        }>
           <option hidden>Select A Preset</option>
           {props.presets.map(({ name, tempo, measures, notes }, i = 0) => {
-            console.log(presets)
+            // console.log(presets)
             i++
-            console.log(presets[i])
+            // console.log(presets[i])
             return (
               <>
-                {console.log(presets)}
-                {console.log(presets)}
-                {console.log()}
+                {/* {console.log(presets)}
+                {console.log(presets)} */}
+                {/* {console.log()} */}
                 <option>Name: {name}__{tempo}/{measures}__{notes}</option>
               </>
             )

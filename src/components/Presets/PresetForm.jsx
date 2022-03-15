@@ -6,6 +6,7 @@ import { createPreset, deletePreset, deleteAllPresets, updatePreset, loadPreset 
 import DropDown from './DropDown'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+const qs = require('qs')
 
 // import { Link } from 'react-router-dom'
 // const formatDate = () => {
@@ -15,8 +16,9 @@ import apiUrl from '../../apiConfig'
 // }
 
 const PresetForm = (props) => {
-  const [presetIndex, setPresetIndex] = useState(1)
+  // const [presetIndex, setPresetIndex] = useState(1)
   // const [presets, setPresets] = useState(['h'])
+  // const [index, setIndex] = useState(document.querySelector('#preset-dropdown').selectedIndex - 1)
   const [presets, setPresets] = useState([{
     checks: [
       true,
@@ -93,6 +95,7 @@ const PresetForm = (props) => {
     __v: 0
   }])
   console.log(presets)
+  const [presetIndex, setPresetIndex] = useState(0)
   const [presetName, setPresetName] = useState('default')
 
   // const [date] = useState(formatDate())
@@ -117,12 +120,21 @@ const PresetForm = (props) => {
   //   props.setCheckedState(presets[index].notes)
   // }
   const loadAllPresets = (user) => {
+    // console.log(user)
+    // console.log(user.token)
     try {
       axios
         .get(`${apiUrl}/presets`, {
           params: {
-            // owner: user.token
-            _id: '622be6a5c8a0d5b0d537f939'
+            user: user.token
+          },
+          paramsSerializer: params => {
+            return qs.stringify(params)
+          }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`
           }
         })
         .then(response => {
@@ -130,11 +142,20 @@ const PresetForm = (props) => {
           console.log(response)
           console.log(presets)
           const presetsArray = Object.entries(response.data.presets)
-          const newPresets = [...presets, presetsArray[4][1]]
+          // let newPresets = [...presets, presetsArray[400][1]]
+          // newPresets = () => {
+          for (let i = 0; i < presetsArray.length; i++) {
+            setPresets(presets => [...presets, presetsArray[i][1]])
+          }
+          //     console.log('NEW PRESET')
+          //     console.log(presets)
+          //     console.log(presetsArray[i])
+          //     console.log(presetsArray[i][1])
+          //     // newPresets = [...presets, presetsArray[i][1]]
+          //   }
+          // }
           console.log(typeof presetsArray)
-          console.log(presetsArray[4][1])
           console.log(presets)
-          setPresets(newPresets)
           console.log(presets)
         })
     } catch (error) { console.error(error) }
@@ -159,30 +180,34 @@ const PresetForm = (props) => {
   console.log(presetsList)
 
   const addToPresets = response => {
-    const newPreset = response.data.preset
-    const newPresets = presets
-    console.log(newPreset)
+    const presetsArray = response.data.preset
+    console.log(`${presetsArray} presetsarray`)
+    console.log(presetsArray)
+    const newPresets = [...presets, presetsArray]
+    setPresets(newPresets)
+  }
+
+  const removeFromPresets = () => {
+    const preset = presets[presetIndex]._id
+    console.log(`${preset} presetToRemove`)
     console.log(presets)
-    // console.log(...presets, newPreset)
-    // setPresets(...presets, newPreset)
-    console.log(presets)
-    console.log([presets])
+    const newPresets = presets.filter((obj) => {
+      return obj._id !== preset
+    })
+    // const newPresets = [presets.splice(presetIndex)]
     console.log(newPresets)
-    console.log(typeof presets)
-    console.log(typeof [presets])
-    console.log(typeof newPresets)
-    // setPresets(newPresets.push(newPreset))
+    setPresets(newPresets)
     console.log(presets)
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log(props.checkedState)
+    console.log(presetIndex)
     const current = {
       checks: props.checkedState,
       measures: props.measures,
       tempo: props.tempo,
-      id: presets,
       name: presetName,
       notes: extractNotes(props.checkedState),
       index: presetIndex
@@ -193,22 +218,26 @@ const PresetForm = (props) => {
     case 'post':
       createPreset(current, props.user)
         .then(response => addToPresets(response))
-      // .then(response => console.log(response.data.preset))
+        // .then(response => console.log(response.data.preset))
         // .then(response => props.setCheckedState(response.data.notes))
         .catch(console.error)
       break
     case 'delete':
-      if (presetIndex !== 0) {
+      // UPDATE TO REMOVE FROM STATE
+      if (presetIndex > 0) {
+        current.id = presets[presetIndex]._id
         deletePreset(current, props.user)
         // .then(console.log(presets))
         // .then(() => setPresets(presets.pop(presetIndex)))
         // // .then(response => { props.setCheckedState(response.data.notes) })
+          .then(removeFromPresets)
         // .then(console.log(presets))
           .catch(console.error)
       }
       break
     case 'load':
-      if (presetIndex !== 0) {
+      if (presetIndex > 0) {
+        current.id = presets[presetIndex]._id
         handleSelectNewPreset()
           .then(loadPreset(current, props.user))
         // .then(response => { props.setCheckedState(response.data.notes) })
@@ -216,9 +245,12 @@ const PresetForm = (props) => {
       }
       break
     case 'edit':
-      updatePreset(current, props.user)
+      if (presetIndex > 0) {
+        current.id = presets[presetIndex]._id
+        updatePreset(current, props.user)
         // .then(response => { props.setCheckedState(response.data.notes) })
-        .catch(console.error)
+          .catch(console.error)
+      }
       break
     }
   }
@@ -251,11 +283,11 @@ const PresetForm = (props) => {
   }
 
   const handleSelectNewPreset = async () => {
-    const index = document.querySelector('#preset-dropdown').selectedIndex - 1
-    props.setCheckedState(presets[index][0][1])
-    props.setTempo(presets[index][5][1])
-    props.setMeasures(presets[index][4][1])
-    setPresetName(presets[index][6][1])
+    // const index = document.querySelector('#preset-dropdown').selectedIndex - 1
+    props.setCheckedState(presets[presetIndex].checks)
+    props.setTempo(presets[presetIndex].tempo)
+    props.setMeasures(presets[presetIndex].measures)
+    setPresetName(presets[presetIndex].name)
     // document.getElementById('presetName').innerHTML(presetName)
   }
 
