@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/metronome-client/static/css/main.5aa97c2e.chunk.css",
-    "main.js": "/metronome-client/static/js/main.4ee2246e.chunk.js",
-    "main.js.map": "/metronome-client/static/js/main.4ee2246e.chunk.js.map",
+    "main.js": "/metronome-client/static/js/main.e6948d8d.chunk.js",
+    "main.js.map": "/metronome-client/static/js/main.e6948d8d.chunk.js.map",
     "runtime-main.js": "/metronome-client/static/js/runtime-main.3a735b88.js",
     "runtime-main.js.map": "/metronome-client/static/js/runtime-main.3a735b88.js.map",
     "static/js/2.4be32757.chunk.js": "/metronome-client/static/js/2.4be32757.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.3a735b88.js",
     "static/js/2.4be32757.chunk.js",
     "static/css/main.5aa97c2e.chunk.css",
-    "static/js/main.4ee2246e.chunk.js"
+    "static/js/main.e6948d8d.chunk.js"
   ]
 }
