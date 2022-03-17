@@ -17,13 +17,13 @@ Also coming more accurate timing through use of self-correcting logic on a per-b
 In order to use the metronome, simply navigate to the client site and press the button at the bottom of the application that displays the current number of beats played. You will see the count set up beat by beat, and the count above will step up as well. The above number will reset when it reaches the length of the measure specified, and the Notes Display will update as well: you should play your practice pattern in reference to the note on the left (Current Note). The note to the right (Note Preview) will become the Current Note in the following measure. Use the Settings menu to customize which notes the Display will choose to update from.
 
 ### Links
-Client Site: https://trevorlomba.github.io/metronome-client/
-Client Repo: https://github.com/trevorlomba/metronome-client
-Backend Site: https://calm-scrubland-98993.herokuapp.com/
-Backend Repo: https://github.com/trevorlomba/metronome
+[Client Site](https://trevorlomba.github.io/metronome-client/)
+[Client Repo](https://github.com/trevorlomba/metronome-client)
+[Backend Site](https://calm-scrubland-98993.herokuapp.com/)
+[Backend Repo](https://github.com/trevorlomba/metronome)
 
 ### Technologies Used
-ReactJS, Express, MongoDB, JavaScript, JQuery,  HTML, CSS
+ReactJS, Express, MongoDB, JavaScript, JQuery, HTML, CSS
 
 ### Planning and Design
 The design of this application takes into account basic music theory that will make adding more features feasible and straightforward. The first functionality I created uses tempo and rhythm values saved in state and used by the Metronome component to set the interval length. From there, I stored the number of intervals per measure and other settings in state and referenced them in in the Metronome component and its children in order to update the display. Now that I had a working interval timer I introduced forms in the PresetForms component to store the state of various settings and the presets array they are mapped to and loaded from. Approaching building the metronome's features in this order helped ensure that every component was working without major issue before building the components and functions that reference the previous ones, making debugging simple and streamlining my workflow.
@@ -193,5 +193,5 @@ Request:
 curl "http://localhost:4741/presets/$ID" \
   --include \
   --request DELETE \
-  --header "Authorization: Bearer Token"
+  --header "Authorization: Bearer $TOKEN"
 ```
