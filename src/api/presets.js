@@ -57,7 +57,7 @@ export const updatePreset = async (current, user) => {
   }
   )
     .then(response => {
-      console.log(response.data.notes)
+      console.log(response)
     })
     .catch(console.error)
 }

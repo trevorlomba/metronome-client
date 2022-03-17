@@ -6,6 +6,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 const authenticatedOptions = (
   <>
+    <NavLink to='/settings' className='nav-link'>Settings</NavLink>
     <NavLink to='/change-password' className='nav-link'>Change Password</NavLink>
     <NavLink to='/sign-out' className='nav-link'>Sign Out</NavLink>
   </>
@@ -24,21 +25,13 @@ const alwaysOptions = (
   </>
 )
 
-const settings = (
-  <>
-    <NavLink to='/settings' className='nav-link'>Settings</NavLink>
-  </>
-)
-
 const Header = ({ user }) => (
   <>
     <Navbar className="color-nav" variant='dark' expand='md'>
       <Container>
         <Navbar.Brand>
           <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>metronome</Link>
-        </Navbar.Brand><Nav className='ms-auto'>
-          {settings}
-        </Nav>
+        </Navbar.Brand>
         {/* <Navbar.Toggle aria-controls='basic-navbar-nav' /> */}
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ms-auto'>

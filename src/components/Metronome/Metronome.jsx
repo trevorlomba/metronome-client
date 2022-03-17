@@ -87,7 +87,7 @@ const Metronome = (props) => {
   const rand = Math.floor(Math.random() * props.notesBucket.length)
   const allNotes = ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#']
   const interval = ''
-  console.log(interval)
+  // console.log(interval)
 
   useEffect((interval) => {
     if (props.notesBucket.length > 0) {
@@ -99,20 +99,20 @@ const Metronome = (props) => {
         }
         props.setCounter(0)
         // setFirst(false)
-        console.log(props.measures)
-        console.log(props.setNotesBucket)
-        console.log(first)
-        console.log(props.measures % props.setNotesBucket)
+        // console.log(props.measures)
+        // console.log(props.setNotesBucket)
+        // console.log(first)
+        // console.log(props.measures % props.setNotesBucket)
       }
       if (props.active) {
         interval = setInterval(() => {
           props.setTotal(props.total + 1)
           props.setCounter(props.counter + 1)
-          console.log(props.tempo)
-          console.log(props.tempo * 60)
-          console.log(props.setNotesBucket)
+          // console.log(props.tempo)
+          // console.log(props.tempo * 60)
+          // console.log(props.setNotesBucket)
         }, 60000 / props.tempo)
-      // console.log(interval)
+      // // console.log(interval)
       // setIntervalID(interval)
       }
       return () => {
@@ -142,9 +142,9 @@ const Metronome = (props) => {
       // console.log(notes[i])
       return allNotes[i]
     })
-    console.log(arr)
+    // console.log(arr)
     props.setNotesBucket(arr)
-    console.log(props.notesBucket)
+    // console.log(props.notesBucket)
   }, [props.checkedState])
   // }, [props.active === 1])
   // l

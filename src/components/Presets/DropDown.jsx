@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 const DropDown = props => {
-  const [presets] = useState(props.presets)
+  // const [presets] = useState(props.presets)
   //   useEffect(() => presetsList(), [props.presets])
   //   const presetsList = props.presets.length > 0 &&
   //     props.presets.map((preset, i) => {
@@ -29,7 +29,7 @@ const DropDown = props => {
   //   }
   //   )
   useEffect(() => {
-    console.log(presets)
+    // console.log(presets)
     // const presetsArray = props.presets?.map((preset, i = 0) => {
     //   i++
     //   return (
@@ -46,19 +46,6 @@ const DropDown = props => {
 
   return (
     <>
-      <div>{props.presets.map(({ name, tempo, measures, notes }, i = 0) => {
-        // console.log(presets)
-        i++
-        // console.log(presets[i])
-        return (
-          <>
-            {/* {console.log(presets)}
-            {console.log(presets)}
-            {console.log()} */}
-            <p>Name: {name}__{tempo}/{measures}__{notes}</p>
-          </>
-        )
-      })}</div>
       <div key={props.presets.length}>
         {/* <h2>{props.presets[1]}</h2> */}
         {/* <h2>{() => presetsList}</h2> */}
@@ -66,11 +53,11 @@ const DropDown = props => {
         {/* {props.presets[4]} */}
         {/* {props.presets} */}
         <select id = "preset-dropdown" onChange={() => {
-          console.log(document.getElementById('preset-dropdown').selectedIndex)
-          props.setPresetIndex(document.getElementById('preset-dropdown').selectedIndex - 1)
+          // console.log(document.getElementById('preset-dropdown').selectedIndex)
+          props.setPresetIndex(document.getElementById('preset-dropdown').selectedIndex)
         }
         }>
-          <option hidden>Select A Preset</option>
+          {/* <option hidden>Select A Preset</option> */}
           {props.presets.map(({ name, tempo, measures, notes }, i = 0) => {
             // console.log(presets)
             i++
@@ -80,7 +67,7 @@ const DropDown = props => {
                 {/* {console.log(presets)}
                 {console.log(presets)} */}
                 {/* {console.log()} */}
-                <option>Name: {name}__{tempo}/{measures}__{notes}</option>
+                <option key={i}>Name: {name}__{tempo}/{measures}__{notes}</option>
               </>
             )
           })}

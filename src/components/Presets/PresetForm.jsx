@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 // import { Link } from 'react-router-dom'
 // import apiUrl from '../../apiConfig'
-import { createPreset, deletePreset, deleteAllPresets, updatePreset, loadPreset } from '../../api/presets'
+import { createPreset, deletePreset, updatePreset, loadPreset } from '../../api/presets'
 import DropDown from './DropDown'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
@@ -19,82 +19,8 @@ const PresetForm = (props) => {
   // const [presetIndex, setPresetIndex] = useState(1)
   // const [presets, setPresets] = useState(['h'])
   // const [index, setIndex] = useState(document.querySelector('#preset-dropdown').selectedIndex - 1)
-  const [presets, setPresets] = useState([{
-    checks: [
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true
-    ],
-    notes: [
-      'a/',
-      'a#/',
-      'b/',
-      'c/',
-      'c#/',
-      'd/',
-      'd#/',
-      'e/',
-      'f/',
-      'f#/',
-      'g/',
-      'g#/'
-    ],
-    _id: '622f6f091019458ad09a8f50',
-    owner: '622f5f531019458ad09a8eee',
-    measures: 4,
-    tempo: 120,
-    name: 'default',
-    createdAt: '2022-03-14T16:36:25.833Z',
-    updatedAt: '2022-03-14T16:36:25.833Z',
-    __v: 0
-  }, {
-    checks: [
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true
-    ],
-    notes: [
-      'a/',
-      'a#/',
-      'b/',
-      'c/',
-      'c#/',
-      'd/',
-      'd#/',
-      'e/',
-      'f/',
-      'f#/',
-      'g/',
-      'g#/'
-    ],
-    _id: '622f6f091019458ad09a8f50',
-    owner: '622f5f531019458ad09a8eee',
-    measures: 4,
-    tempo: 120,
-    name: 'default',
-    createdAt: '2022-03-14T16:36:25.833Z',
-    updatedAt: '2022-03-14T16:36:25.833Z',
-    __v: 0
-  }])
-  console.log(presets)
+  const [presets, setPresets] = useState([])
+  // console.log(presets)
   const [presetIndex, setPresetIndex] = useState(0)
   const [presetName, setPresetName] = useState('default')
 
@@ -110,7 +36,7 @@ const PresetForm = (props) => {
   // console.log(arr)
   const arr = []
   console.log(arr)
-  console.log(presetName)
+  // console.log(presetName)
   const allNotes = ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#']
   // const notes = ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g#']
   // const loadPreset = (index) => {
@@ -138,25 +64,25 @@ const PresetForm = (props) => {
           }
         })
         .then(response => {
-          console.log(response.data.presets)
-          console.log(response)
-          console.log(presets)
+          // console.log(response.data.presets)
+          // console.log(response)
+          // console.log(presets)
           const presetsArray = Object.entries(response.data.presets)
           // let newPresets = [...presets, presetsArray[400][1]]
           // newPresets = () => {
           for (let i = 0; i < presetsArray.length; i++) {
             setPresets(presets => [...presets, presetsArray[i][1]])
           }
-          //     console.log('NEW PRESET')
-          //     console.log(presets)
-          //     console.log(presetsArray[i])
-          //     console.log(presetsArray[i][1])
+          //     // console.log('NEW PRESET')
+          //     // console.log(presets)
+          //     // console.log(presetsArray[i])
+          //     // console.log(presetsArray[i][1])
           //     // newPresets = [...presets, presetsArray[i][1]]
           //   }
           // }
-          console.log(typeof presetsArray)
-          console.log(presets)
-          console.log(presets)
+          // console.log(typeof presetsArray)
+          // console.log(presets)
+          // console.log(presets)
         })
     } catch (error) { console.error(error) }
   }
@@ -166,44 +92,44 @@ const PresetForm = (props) => {
   }, [])
 
   let presetsList
-  console.log(presetsList)
+  // console.log(presetsList)
   useEffect((presetsList) => {
-    console.log('ran')
-    console.log(presets)
+    // console.log('ran')
+    // console.log(presets)
     presetsList = presets.map((preset) => (
       <li key={preset._id}>
         {preset}
       </li>))
-    console.log(presetsList)
+    // console.log(presetsList)
     return presetsList
   })
-  console.log(presetsList)
+  // console.log(presetsList)
 
   const addToPresets = response => {
     const presetsArray = response.data.preset
-    console.log(`${presetsArray} presetsarray`)
-    console.log(presetsArray)
+    // console.log(`${presetsArray} presetsarray`)
+    // console.log(presetsArray)
     const newPresets = [...presets, presetsArray]
     setPresets(newPresets)
   }
 
   const removeFromPresets = () => {
     const preset = presets[presetIndex]._id
-    console.log(`${preset} presetToRemove`)
-    console.log(presets)
+    // console.log(`${preset} presetToRemove`)
+    // console.log(presets)
     const newPresets = presets.filter((obj) => {
       return obj._id !== preset
     })
     // const newPresets = [presets.splice(presetIndex)]
-    console.log(newPresets)
+    // console.log(newPresets)
     setPresets(newPresets)
-    console.log(presets)
+    // console.log(presets)
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(props.checkedState)
-    console.log(presetIndex)
+    // console.log(props.checkedState)
+    // console.log(presetIndex)
     const current = {
       checks: props.checkedState,
       measures: props.measures,
@@ -213,7 +139,7 @@ const PresetForm = (props) => {
       index: presetIndex
     }
     if (props.user) { current.owner = props.user.token }
-    console.log(current)
+    // console.log(current)
     switch (event.nativeEvent.submitter.name) {
     case 'post':
       createPreset(current, props.user)
@@ -224,33 +150,33 @@ const PresetForm = (props) => {
       break
     case 'delete':
       // UPDATE TO REMOVE FROM STATE
-      if (presetIndex > 0) {
-        current.id = presets[presetIndex]._id
-        deletePreset(current, props.user)
+
+      current.id = presets[presetIndex]._id
+      deletePreset(current, props.user)
         // .then(console.log(presets))
         // .then(() => setPresets(presets.pop(presetIndex)))
         // // .then(response => { props.setCheckedState(response.data.notes) })
-          .then(removeFromPresets)
+        .then(removeFromPresets)
         // .then(console.log(presets))
-          .catch(console.error)
-      }
+        .catch(console.error)
+
       break
     case 'load':
-      if (presetIndex > 0) {
-        current.id = presets[presetIndex]._id
-        handleSelectNewPreset()
-          .then(loadPreset(current, props.user))
+
+      current.id = presets[presetIndex]._id
+      handleSelectNewPreset()
+        .then(loadPreset(current, props.user))
         // .then(response => { props.setCheckedState(response.data.notes) })
-          .catch(console.error)
-      }
+        .catch(console.error)
+
       break
     case 'edit':
-      if (presetIndex > 0) {
-        current.id = presets[presetIndex]._id
-        updatePreset(current, props.user)
+
+      current.id = presets[presetIndex]._id
+      updatePreset(current, props.user)
         // .then(response => { props.setCheckedState(response.data.notes) })
-          .catch(console.error)
-      }
+        .catch(console.error)
+
       break
     }
   }
@@ -276,10 +202,10 @@ const PresetForm = (props) => {
     const updatedCheckedState = props.checkedState.map((item, index) =>
       index === position ? !item : item
     )
-    console.log(updatedCheckedState)
+    // console.log(updatedCheckedState)
     props.setCheckedState(updatedCheckedState)
-    console.log(updatedCheckedState.length)
-    console.log(props.checkedState[1])
+    // console.log(updatedCheckedState.length)
+    // console.log(props.checkedState[1])
   }
 
   const handleSelectNewPreset = async () => {
@@ -295,14 +221,14 @@ const PresetForm = (props) => {
     let updatedPreset
     if (event.nativeEvent.data) {
       updatedPreset = presetName + event.nativeEvent.data
-      console.log(updatedPreset)
+      // console.log(updatedPreset)
     } else {
       updatedPreset = presetName.substring(0, presetName.length - 1)
     }
     setPresetName(updatedPreset)
   }
   const extractNotes = (preset = [props.checkState]) => {
-    console.log('extractNotes')
+    // console.log('extractNotes')
     let i
     const arr = []
     console.log(i)
@@ -316,8 +242,8 @@ const PresetForm = (props) => {
     })
     return (arr.splice(0, arr.length - 0))
   }
-  console.log(props.checkedState)
-  console.log(allNotes)
+  // console.log(props.checkedState)
+  // console.log(allNotes)
   return (
     <>
       {presetsList}
@@ -348,14 +274,13 @@ const PresetForm = (props) => {
           })}
         </div>
         {/* {document.querySelector} */}
-        {presetsList}
+        {/* {presetsList} */}
+        {/* {console.log(presetIndex)} */}
+        {/* {presetIndex} */}
         {/* {props.tempo} */}
         <b> select a preset </b>
         <DropDown extractNotes={extractNotes} presets={presets} tempo={props.tempo}setPresetIndex={setPresetIndex} setPresets={setPresets}/>
         <div><button name='load' type='submit'>Load</button><button name='edit' type='submit'>Update</button><button name='delete' type='submit'>Delete</button></div><input id='presetName' value={presetName} onChange = {handlePresetNameChange}></input><button name='post' type='submit'>Save As</button>
-      </form>
-      <form onSubmit = {deleteAllPresets}>
-        <button type='submit'>delete all</button>
       </form>
     </>
   )
