@@ -23,6 +23,7 @@ const PresetForm = (props) => {
   // console.log(presets)
   const [presetIndex, setPresetIndex] = useState(0)
   const [presetName, setPresetName] = useState('default')
+  // const [disabled, setDisabled] = useState(() => (presets.length))
 
   // const [date] = useState(formatDate())
   // const handleSubmit = event => {
@@ -89,6 +90,7 @@ const PresetForm = (props) => {
 
   useEffect(() => {
     loadAllPresets(props.user)
+    // setDisabled(() => (presets.length))
   }, [])
 
   let presetsList
@@ -111,6 +113,7 @@ const PresetForm = (props) => {
     // console.log(presetsArray)
     const newPresets = [...presets, presetsArray]
     setPresets(newPresets)
+    // setDisabled(() => (presets.length))
   }
 
   const removeFromPresets = () => {
@@ -123,6 +126,9 @@ const PresetForm = (props) => {
     // const newPresets = [presets.splice(presetIndex)]
     // console.log(newPresets)
     setPresets(newPresets)
+    // setDisabled(() => (presets.length))
+    document.getElementById('preset-dropdown').selectedIndex = 0
+    setPresetIndex(0)
     // console.log(presets)
   }
 
@@ -150,33 +156,35 @@ const PresetForm = (props) => {
       break
     case 'delete':
       // UPDATE TO REMOVE FROM STATE
-
-      current.id = presets[presetIndex]._id
-      deletePreset(current, props.user)
-        // .then(console.log(presets))
-        // .then(() => setPresets(presets.pop(presetIndex)))
-        // // .then(response => { props.setCheckedState(response.data.notes) })
-        .then(removeFromPresets)
-        // .then(console.log(presets))
-        .catch(console.error)
+      if (presets[0]) {
+        current.id = presets[presetIndex]._id
+        deletePreset(current, props.user)
+          // .then(console.log(presets))
+          // .then(() => setPresets(presets.pop(presetIndex)))
+          // // .then(response => { props.setCheckedState(response.data.notes) })
+          .then(removeFromPresets)
+          // .then(console.log(presets))
+          .catch(console.error)
+      }
 
       break
     case 'load':
-
-      current.id = presets[presetIndex]._id
-      handleSelectNewPreset()
-        .then(loadPreset(current, props.user))
+      if (presets[0]) {
+        current.id = presets[presetIndex]._id
+        handleSelectNewPreset()
+          .then(loadPreset(current, props.user))
         // .then(response => { props.setCheckedState(response.data.notes) })
-        .catch(console.error)
+          .catch(console.error)
+      }
 
       break
     case 'edit':
-
-      current.id = presets[presetIndex]._id
-      updatePreset(current, props.user)
+      if (presets[0]) {
+        current.id = presets[presetIndex]._id
+        updatePreset(current, props.user)
         // .then(response => { props.setCheckedState(response.data.notes) })
-        .catch(console.error)
-
+          .catch(console.error)
+      }
       break
     }
   }
@@ -279,8 +287,8 @@ const PresetForm = (props) => {
         {/* {presetIndex} */}
         {/* {props.tempo} */}
         <b> select a preset </b>
-        <DropDown extractNotes={extractNotes} presets={presets} tempo={props.tempo}setPresetIndex={setPresetIndex} setPresets={setPresets}/>
-        <div><button name='load' type='submit'>Load</button><button name='edit' type='submit'>Update</button><button name='delete' type='submit'>Delete</button></div><input id='presetName' value={presetName} onChange = {handlePresetNameChange}></input><button name='post' type='submit'>Save As</button>
+        {() => (presets.length)}
+        <div><DropDown extractNotes={extractNotes} presets={presets} tempo={props.tempo}presetIndex={presetIndex}setPresetIndex={setPresetIndex} setPresets={setPresets}/><button name='load' type='submit' className='presetButtons' >Load</button><button name='edit' type='submit' className='presetButtons' >Update</button><button name='delete' type='submit' className='presetButtons' >Delete</button></div><input id='presetName' value={presetName} onChange = {handlePresetNameChange}></input><button name='post' type='submit'>Save As</button>
       </form>
     </>
   )

@@ -44,19 +44,20 @@ const DropDown = props => {
     // })
   }, [])
 
+  const handleChange = () => {
+    // console.log(document.getElementById('preset-dropdown').selectedIndex)
+    props.setPresetIndex(document.getElementById('preset-dropdown').selectedIndex)
+  }
   return (
     <>
+      {props.presetIndex}
       <div key={props.presets.length}>
         {/* <h2>{props.presets[1]}</h2> */}
         {/* <h2>{() => presetsList}</h2> */}
         {/* <h2>{presetsList}</h2> */}
         {/* {props.presets[4]} */}
         {/* {props.presets} */}
-        <select id = "preset-dropdown" onChange={() => {
-          // console.log(document.getElementById('preset-dropdown').selectedIndex)
-          props.setPresetIndex(document.getElementById('preset-dropdown').selectedIndex)
-        }
-        }>
+        <select id = "preset-dropdown" onChange={handleChange}>
           {/* <option hidden>Select A Preset</option> */}
           {props.presets.map(({ name, tempo, measures, notes }, i = 0) => {
             // console.log(presets)
