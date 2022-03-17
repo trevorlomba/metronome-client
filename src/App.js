@@ -156,7 +156,7 @@ const App = () => {
           />
           <Route className = "presets"
             path='/settings'
-            element={<PresetForm user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} /> }
+            element={<PresetForm user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} msgAlert={msgAlert}/> }
           />
 
         </Routes>
