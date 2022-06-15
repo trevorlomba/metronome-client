@@ -20,7 +20,7 @@ const TempoSlider = (props) => {
     <>
       <div className = "tempo-slider">
         <AdjustTempo className="adjust decrease-tempo" text="-" onClick = {decreaseTempo} />
-        <input type="range" value={props.tempo} min="20" max="220" step="1" className="slider" onChange = {slideTempo}></input>
+        <input type="range" value={props.tempo} min="40" max="180" step="1" className="slider" onChange = {slideTempo}></input>
         <AdjustTempo className="adjust increase-tempo" text="+" onClick = {increaseTempo}></AdjustTempo>
       </div>
     </>

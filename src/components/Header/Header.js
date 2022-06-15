@@ -6,7 +6,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 const authenticatedOptions = (
   <>
-    <NavLink to='/settings' className='nav-link'>Settings</NavLink>
+    <NavLink to='/presets' className='nav-link'>Settings</NavLink>
     <NavLink to='/change-password' className='nav-link'>Change Password</NavLink>
     <NavLink to='/sign-out' className='nav-link'>Sign Out</NavLink>
   </>
@@ -14,6 +14,7 @@ const authenticatedOptions = (
 
 const unauthenticatedOptions = (
   <>
+    <NavLink to='/settings' className='nav-link'>Settings</NavLink>
     <NavLink to='/sign-up' className='nav-link'>Sign Up</NavLink>
     <NavLink to='/sign-in' className='nav-link'>Sign In</NavLink>
   </>

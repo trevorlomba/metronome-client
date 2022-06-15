@@ -1,5 +1,6 @@
 // import React from 'react'
 import React, { useState, useEffect } from 'react'
+import { Howl } from 'howler'
 
 import TempoSlider from './TempoSlider'
 import Measures from './Measures'
@@ -9,12 +10,49 @@ import StartStop from './StartStop'
 import RandomNote from '../Metronome/RandomNote'
 
 import '../../index.scss'
+import click3 from '../../click3.wav'
+import aTone from '../../noteTones/aTone.wav'
+import aSharpTone from '../../noteTones/aSharpTone.wav'
+import bTone from '../../noteTones/bTone.wav'
+import cTone from '../../noteTones/cTone.wav'
+import cSharpTone from '../../noteTones/cSharpTone.wav'
+import dTone from '../../noteTones/dTone.wav'
+import dSharpTone from '../../noteTones/dSharpTone.wav'
+import eTone from '../../noteTones/eTone.wav'
+import fTone from '../../noteTones/fTone.wav'
+import fSharpTone from '../../noteTones/fSharpTone.wav'
+import gTone from '../../noteTones/gTone.wav'
+import gSharpTone from '../../noteTones/gSharpTone.wav'
 
 const Metronome = (props) => {
   // const [presetIndex] = useState(0)
   const [currentNote, setCurrentNote] = useState(props.notesBucket[Math.floor(Math.random() * 12)])
   const [randomNote, setRandomNote] = useState(props.notesBucket[Math.floor(Math.random() * 12)])
   const [first, setFirst] = useState(true)
+  const noteTones = {
+    a: aTone,
+    'a#': aSharpTone,
+    b: bTone,
+    c: cTone,
+    'c#': cSharpTone,
+    d: dTone,
+    'd#': dSharpTone,
+    e: eTone,
+    f: fTone,
+    'f#': fSharpTone,
+    g: gTone,
+    'g#': gSharpTone
+  }
+  const handleCheckChange = (position) => {
+    const updatedCheckedState = props.checkedState.map((item, index) =>
+      index === position ? !item : item
+    )
+    // console.log(updatedCheckedState)
+    props.setCheckedState(updatedCheckedState)
+    // console.log(updatedCheckedState.length)
+    // console.log(props.checkedState[1])
+  }
+  console.log(handleCheckChange)
   // setCurrentNote(props.notesBucket)
   // setRandomNote(props.notesBucket)
   // const [intervalID,  setIntervalID] = useState(0)
@@ -87,27 +125,40 @@ const Metronome = (props) => {
   const rand = Math.floor(Math.random() * props.notesBucket.length)
   const allNotes = ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#']
   const interval = ''
-  // console.log(interval)
+  // const notesAudio = { a: aAudio, a: bAudio, b: bAudio, b: bAudio, b: bAudio, b: bAudio, b: bAudio, b: bAudio, b: bAudio, b: bAudio, b: bAudio, b: bAudio, b: bAudio}
 
+  // console.log(interval)
+  // let chooseNote = currentNote => {
+  //   return notesAudio[currentNote]
+  // }
   useEffect((interval) => {
     if (props.notesBucket.length > 0) {
-      if (props.counter % props.measures === 0 && props.counter > 0) {
+      if (props.counter === props.measures) {
+        props.setCounter(0)
         if (first) {
+          clearInterval(interval)
           setFirst(true)
           setRandomNote(props.notesBucket[rand])
           setCurrentNote(randomNote)
+          const randomNoteString = randomNote.toString()
+          const AudioPlay = new Howl({ src: [noteTones[randomNoteString]] })
+          console.log(randomNoteString)
+          AudioPlay.play()
+          // const AudioPlay = new Audio(noteTones[randomNoteString])
+          // console.log(randomNoteString)
+          // AudioPlay.play()
         }
-        props.setCounter(0)
         // setFirst(false)
         // console.log(props.measures)
         // console.log(props.setNotesBucket)
         // console.log(first)
         // console.log(props.measures % props.setNotesBucket)
-      }
-      if (props.active) {
+      } else if (props.active) {
         interval = setInterval(() => {
           props.setTotal(props.total + 1)
           props.setCounter(props.counter + 1)
+          const AudioPlay = new Howl({ src: [click3] })
+          AudioPlay.play()
           // console.log(props.tempo)
           // console.log(props.tempo * 60)
           // console.log(props.setNotesBucket)

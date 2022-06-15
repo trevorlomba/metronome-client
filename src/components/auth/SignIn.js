@@ -7,6 +7,8 @@ import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import '../../index.scss'
+
 const SignIn = ({ msgAlert, setUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -41,8 +43,9 @@ const SignIn = ({ msgAlert, setUser }) => {
   }
 
   return (
-    <div className='row'>
-      <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+    <div className='authform'>
+      <div className='row'>
+        {/* <div className='col-sm-10 col-md-8 mx-auto'> */}
         <h3>Sign In</h3>
         <Form onSubmit={onSignIn}>
           <Form.Group controlId='email'>
@@ -53,7 +56,7 @@ const SignIn = ({ msgAlert, setUser }) => {
               name='email'
               value={email}
               placeholder='Enter email'
-              onChange={event => setEmail(event.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
           <Form.Group controlId='password'>
@@ -64,14 +67,16 @@ const SignIn = ({ msgAlert, setUser }) => {
               value={password}
               type='password'
               placeholder='Password'
-              onChange={event => setPassword(event.target.value)
-              }
+              onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
-          <Button className='mt-2' variant='primary' type='submit'>Submit</Button>
+          <Button className='mt-2' variant='primary' type='submit'>
+Submit
+          </Button>
         </Form>
       </div>
     </div>
+    // </div>
   )
 }
 

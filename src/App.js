@@ -12,7 +12,8 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 
 import Metronome from './components/Metronome/Metronome'
-import PresetForm from './components/Presets/PresetForm'
+import NotesForm from './components/Presets/NotesForm'
+import PresetsForm from './components/Presets/PresetsForm'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -156,9 +157,13 @@ const App = () => {
           />
           <Route className = "presets"
             path='/settings'
-            element={<PresetForm user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} msgAlert={msgAlert}/> }
+            element={<NotesForm user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} msgAlert={msgAlert}/> }
           />
-
+          <Route className = "presets"
+            path='/presets'
+            element={<PresetsForm
+              user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} msgAlert={msgAlert}/> }
+          />
         </Routes>
       </main>
       <div className="parent">

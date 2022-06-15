@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 // import { Link } from 'react-router-dom'
 // import apiUrl from '../../apiConfig'
 import { createPreset, deletePreset, updatePreset, loadPreset } from '../../api/presets'
-import DropDown from './DropDown'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+import './presetForm.scss'
 const qs = require('qs')
 
 // import { Link } from 'react-router-dom'
@@ -15,7 +15,7 @@ const qs = require('qs')
 //   )
 // }
 
-const PresetForm = (props) => {
+const NotesForm = (props) => {
   // const [presetIndex, setPresetIndex] = useState(1)
   // const [presets, setPresets] = useState(['h'])
   // const [index, setIndex] = useState(document.querySelector('#preset-dropdown').selectedIndex - 1)
@@ -93,18 +93,18 @@ const PresetForm = (props) => {
     // setDisabled(() => (presets.length))
   }, [])
 
-  let presetsList
-  // console.log(presetsList)
-  useEffect((presetsList) => {
-    // console.log('ran')
-    // console.log(presets)
-    presetsList = presets.map((preset) => (
-      <li key={preset._id}>
-        {preset}
-      </li>))
-    // console.log(presetsList)
-    return presetsList
-  })
+  // let presetsList
+  // // console.log(presetsList)
+  // useEffect((presetsList) => {
+  //   // console.log('ran')
+  //   // console.log(presets)
+  //   presetsList = presets.map((preset) => (
+  //     <li key={preset._id}>
+  //       {preset}
+  //     </li>))
+  //   // console.log(presetsList)
+  //   return presetsList
+  // })
   // console.log(presetsList)
 
   const addToPresets = response => {
@@ -225,16 +225,6 @@ const PresetForm = (props) => {
     // document.getElementById('presetName').innerHTML(presetName)
   }
 
-  const handlePresetNameChange = (event) => {
-    let updatedPreset
-    if (event.nativeEvent.data) {
-      updatedPreset = presetName + event.nativeEvent.data
-      // console.log(updatedPreset)
-    } else {
-      updatedPreset = presetName.substring(0, presetName.length - 1)
-    }
-    setPresetName(updatedPreset)
-  }
   const extractNotes = (preset = [props.checkState]) => {
     // console.log('extractNotes')
     let i
@@ -254,7 +244,6 @@ const PresetForm = (props) => {
   // console.log(allNotes)
   return (
     <>
-      {presetsList}
       {/* <form onSubmit={props.onSubmit}>
         <h2>Hello</h2>
         <h4>{props.tempo}</h4>
@@ -262,34 +251,30 @@ const PresetForm = (props) => {
         <button type='submit'>button</button>
         <h1>{props.counter + 1}</h1>
       </form> */}
-      <form onSubmit={handleSubmit}>
-        <div>
-          {allNotes.map(({ name }, index) => {
-            return (
-              <>
-                {props.presets}
-                <input key={index}
-                  type="checkbox"
-                  id={`custom-checkbox-${index}`}
-                  name={allNotes[index]}
-                  value={allNotes[index]}
-                  checked={props.checkedState[index]}
-                  onChange={() => handleCheckChange(index, allNotes[index])}
-                />
-                <label htmlFor={`custom-checkbox-${index}`}>{allNotes[index].toUpperCase()} {''}</label>
-              </>
-            )
-          })}
-        </div>
-        {/* {document.querySelector} */}
-        {/* {presetsList} */}
-        {/* {console.log(presetIndex)} */}
-        {/* {presetIndex} */}
-        {/* {props.tempo} */}
-        <b> select a preset </b>
-        {() => (presets.length)}
-        <div><DropDown extractNotes={extractNotes} presets={presets} tempo={props.tempo}presetIndex={presetIndex}setPresetIndex={setPresetIndex} setPresets={setPresets}/><button name='load' type='submit' className='presetButtons' >Load</button><button name='edit' type='submit' className='presetButtons' >Update</button><button name='delete' type='submit' className='presetButtons' >Delete</button></div><input id='presetName' value={presetName} onChange = {handlePresetNameChange}></input><button name='post' type='submit'>Save As</button>
-      </form>
+      <container className="settings">
+        <form className="form" onSubmit={handleSubmit}>
+          {/* {presetsList} */}
+          <div>
+            {allNotes.map(({ name }, index) => {
+              return (
+                <>
+                  {props.presets}
+                  <input key={index}
+                    className="checks"
+                    type="checkbox"
+                    id={`custom-checkbox-${index}`}
+                    name={allNotes[index]}
+                    value={allNotes[index]}
+                    checked={props.checkedState[index]}
+                    onChange={() => handleCheckChange(index, allNotes[index])}
+                  />
+                  <label htmlFor={`custom-checkbox-${index}`}>{allNotes[index].toUpperCase()}{' '}</label>
+                </>
+              )
+            })}
+          </div>
+        </form>
+      </container>
     </>
   )
 }
@@ -322,4 +307,4 @@ const PresetForm = (props) => {
 //   </>
 // }
 
-export default PresetForm
+export default NotesForm
