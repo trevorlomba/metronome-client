@@ -244,3 +244,12 @@ input[type="range"] {
     border-radius: 1rem;
     padding: 1rem;
 }
+
+@media only screen and (max-width: 600px) {
+    .notes-walk {
+        font-size: 4em;
+    }
+    .notes {
+        font-size: 1.5em;
+    }
+}
