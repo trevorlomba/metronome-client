@@ -31,7 +31,7 @@ const Header = ({ user }) => (
     <Navbar className="color-nav" variant='dark' expand='md'>
       <Container>
         <Navbar.Brand>
-          <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>metronome</Link>
+          <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>random note generator</Link>
         </Navbar.Brand>
         {/* <Navbar.Toggle aria-controls='basic-navbar-nav' /> */}
         <Navbar.Collapse id='basic-navbar-nav'>

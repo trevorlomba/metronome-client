@@ -245,11 +245,51 @@ input[type="range"] {
     padding: 1rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 480px) {
     .notes-walk {
-        font-size: 4em;
+        font-size: 3em;
+    }
+
+    .notes {
+        font-size: 1.2em;
+    }
+
+    .bpm-display {
+        font-size: 1em;
+    }
+
+    .adjust {
+        font-size: 1.2rem;
+        line-height: 1em;
+    }
+
+    .beats-display {
+        font-size: .8em;
+        line-height: 1em;
+    }
+
+    .home {
+        padding: .5em;
+    }
+}
+@media only screen and (max-height: 600px) {
+    .notes-walk {
+        font-size: 3em;
     }
     .notes {
-        font-size: 1.5em;
+        font-size: 1.2em;
+    }
+    .bpm-display {
+        font-size: 1em;
+    }
+    .adjust {
+        font-size: 1.2rem;
+        line-height: 1em;
+    }
+    .beats-display {
+        font-size: .8em;
+        line-height: 1em;}
+    .home {
+        padding: .5em;
     }
 }
