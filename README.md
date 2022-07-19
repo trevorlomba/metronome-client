@@ -1,6 +1,19 @@
 # Random Note Generator 
 #### by Trevor Lomba
-This is a metronome app with added functionality to aid musicians in their practice. The metronome updates every measure with a new random key which the musician is to use as reference to play whichever patterns they are practicing in the new key, in rhythm, every measure. Within setting users can customize which keys are randomly chosen from and save, load, edit and delete these presets. 
+
+### Overview
+A metronome app with functionality to aid musicians in their improvisation and sight-reading practice. Users can select which the traditional 12 tones the metronome will pull randomly from play along with the first click of every measure. Musicians are to use the updating tones as reference to play whichever patterns they are practicing in the new key and in rhythm.
+
+I used React and React Router to build the majority of this application, along with scss for some basic styling. The javascript function setTimeout() is integral to the metronome’s rhythm keeping. Data such as the ‘notes bucket,’ tempo, and number of measures are stored and updated in state. Users can create their own accounts and save current user preferences as presets to load for quick access in the future. 
+
+Future iterations of this project will include:
+* Option to shift the tonal centre of the notes bucket randomly after a certain number of measures according to user selection
+* Logic to bring the metronome closer to perfect tempo by calculating the difference in ms between the expected and actual time and subtracting that value from the current beat length
+* User ability ability to alter the rhythm of the audio 
+* Option to play arpeggiated note tones following the first of each measure according to user selection
+
+Noted bugs include imperfect metronome timing related to setTimeout() and presets not restoring after users log out. 
+
 
 ### Links
 1. [Client Site](https://trevorlomba.github.io/metronome-client/)
