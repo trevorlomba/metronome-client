@@ -6,11 +6,9 @@ import '../../index.scss'
 
 const TempoSlider = (props) => {
   const decreaseTempo = () => {
-    // console.log('yup')
     props.decreaseTempo()
   }
   const increaseTempo = () => {
-    // console.log('yup')
     props.increaseTempo()
   }
   const slideTempo = () => {

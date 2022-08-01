@@ -25,8 +25,9 @@ const App = () => {
   const [total, setTotal] = useState(0)
   const [notesBucket, setNotesBucket] = useState(['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#'])
   const [counter, setCounter] = useState(1)
-  // console.log(setMeasures)
-  // console.log(setTempo)
+  const [presets, setPresets] = useState([])
+  const [presetIndex, setPresetIndex] = useState(0)
+  const [presetName, setPresetName] = useState('default')
 
   const clearUser = () => setUser(null)
 
@@ -35,31 +36,7 @@ const App = () => {
     setMsgAlerts(msgAlerts => ([...msgAlerts, { heading, message, variant, id }]))
   }
 
-  // const tempoDisplay = document.querySelector('.tempo')
-  // console.log(tempoDisplay)
-  // const tempoText = document.querySelector('.tempo-text')
-  // console.log(tempoText)
-  // const decreaseTempoBtn = document.querySelector('.decrease-tempo')
-  // console.log(decreaseTempoBtn)
-  // const increaseTempoBtn = document.querySelector('.increase-tempo-button')
-  // console.log(increaseTempoBtn)
   const tempoSlider = document.querySelector('.slider')
-  // console.log(tempoSlider)
-  // const startStopBtn = document.querySelector('.start-stop-button')
-  // console.log(startStopBtn)
-  // const subtractBeats = document.querySelector('.subtract-beats')
-  // console.log(subtractBeats)
-  // const addBeats = document.querySelector('.add-beats')
-  // // console.log(addBeats)
-  // const BpmDisplayElement = document.querySelector('.bpm-display')
-  // console.log(BpmDisplayElement)
-  // const metronome = { but: 'that' }
-  // console.log(metronome)
-  // const beatsDisplay = document.querySelector('.beats-display')
-  // console.log(beatsDisplay)
-  // while (active) {
-  //   setActive(0)
-  // }
 
   const decreaseTempo = () => {
     if (tempo < 20) {
@@ -102,33 +79,19 @@ const App = () => {
     switch (active) {
     case 0:
       stat = 1
-      // myTimer.start()
       break
     default:
       stat = 0
-      // myTimer.stop()
       break
     }
     setActive(stat)
     setTotal(0)
   }
-  // if (active === 0) {
-  //   myTimer.stop()
-  // } else {
-  //   myTimer.start()
-  // }
-  // console.log(myTimer)
-
-  // const stopTimer = () => {
-  //   myTimer.start()
-  // }
-  // console.log(startTimer)
-  // console.log(stopTimer)
 
   return (
     <>
       <Header user={user} />
-      {msgAlerts.map(msgAlert => (
+      {msgAlerts.map((msgAlert) => (
         <AutoDismissAlert
           key={msgAlert.id}
           heading={msgAlert.heading}
@@ -141,35 +104,77 @@ const App = () => {
         <Routes>
           <Route
             path='/sign-up'
-            element={<SignUp msgAlert={msgAlert} setUser={setUser} /> }
+            element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
           />
           <Route
             path='/sign-in'
-            element={<SignIn msgAlert={msgAlert} setUser={setUser} /> }
+            element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
           />
           <Route
             path='/sign-out'
-            element={<SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} /> }
+            element={
+              <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+            }
           />
           <Route
             path='/change-password'
-            element={<ChangePassword msgAlert={msgAlert} user={user} /> }
+            element={<ChangePassword msgAlert={msgAlert} user={user} />}
           />
-          <Route className = "presets"
+          <Route
+            className='presets'
             path='/settings'
-            element={<NotesForm user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} msgAlert={msgAlert}/> }
+            element={
+              <NotesForm
+                user={user}
+                measures={measures}
+                setMeasures={setMeasures}
+                notesBucket={notesBucket}
+                tempo={tempo}
+                setTempo={setTempo}
+                counter={counter}
+                setCheckedState={setCheckedState}
+                checkedState={checkedState}
+                msgAlert={msgAlert}
+                presets={presets}
+                setPresets={setPresets}
+                presetIndex={presetIndex}
+                setPresetIndex={setPresetIndex}
+                presetName={presetName}
+                setPresetName={setPresetName}
+              />
+            }
           />
-          <Route className = "presets"
+          <Route
+            className='presets'
             path='/presets'
-            element={<PresetsForm
-              user={user} measures={measures} setMeasures={setMeasures} notesBucket={notesBucket} tempo={tempo} setTempo={setTempo} counter={counter} setCheckedState={setCheckedState} checkedState={checkedState} msgAlert={msgAlert}/> }
+            element={
+              <PresetsForm
+                user={user}
+                measures={measures}
+                setMeasures={setMeasures}
+                notesBucket={notesBucket}
+                tempo={tempo}
+                setTempo={setTempo}
+                counter={counter}
+                setCheckedState={setCheckedState}
+                checkedState={checkedState}
+                msgAlert={msgAlert}
+                presets={presets}
+                setPresets={setPresets}
+                presetIndex={presetIndex}
+                setPresetIndex={setPresetIndex}
+                presetName={presetName}
+                setPresetName={setPresetName}
+              />
+            }
           />
         </Routes>
       </main>
-      <div className="parent">
+      <div className='parent'>
         {checkedState}
-        <div className="home">
-          <Metronome className="metronome"
+        <div className='home'>
+          <Metronome
+            className='metronome'
             setTempo={setTempo}
             setMeasures={setMeasures}
             tempo={tempo}
@@ -183,14 +188,12 @@ const App = () => {
             user={user}
             counter={counter}
             setCounter={setCounter}
-            notesBucket = {notesBucket}
-            setNotesBucket = {setNotesBucket}
+            notesBucket={notesBucket}
+            setNotesBucket={setNotesBucket}
             checkedState={checkedState}
             setCheckedState={setCheckedState}
             total={total}
             setTotal={setTotal}
-            // setCounter = {setCounter}
-            // addResource={addResource}
             active={active}></Metronome>
         </div>
       </div>

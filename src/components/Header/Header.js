@@ -33,7 +33,6 @@ const Header = ({ user }) => (
         <Navbar.Brand>
           <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>random note generator</Link>
         </Navbar.Brand>
-        {/* <Navbar.Toggle aria-controls='basic-navbar-nav' /> */}
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ms-auto'>
             {user && (
@@ -45,8 +44,6 @@ const Header = ({ user }) => (
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    {/* <Navbar bg='primary' variant='dark' expand='md'>
-    </Navbar> */}
   </>
 )
 

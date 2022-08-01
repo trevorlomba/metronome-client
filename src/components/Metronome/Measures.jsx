@@ -6,11 +6,9 @@ import AdjustBeats from './AdjustBeats'
 
 const Measures = (props) => {
   const decreaseBeats = () => {
-    // console.log('yup')
     props.decreaseBeats()
   }
   const increaseBeats = () => {
-    // console.log('yup')
     props.increaseBeats()
   }
 

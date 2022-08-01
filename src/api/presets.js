@@ -94,6 +94,7 @@ export const loadPreset = async (current, user) => {
   axios.get(`${apiUrl}/presets/${presetID}`)
     .then(response => {
       console.log(response.data.notes)
+      return response.data
     })
     .catch(console.error)
 }
