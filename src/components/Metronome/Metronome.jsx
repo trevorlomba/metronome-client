@@ -40,13 +40,13 @@ const Metronome = (props) => {
     g: gTone,
     'g#': gSharpTone
   }
-  const handleCheckChange = (position) => {
-    const updatedCheckedState = props.checkedState.map((item, index) =>
-      index === position ? !item : item
-    )
-    props.setCheckedState(updatedCheckedState)
-  }
-  console.log(handleCheckChange)
+  // const handleCheckChange = (position) => {
+  //   const updatedCheckedState = props.checkedState.map((item, index) =>
+  //     index === position ? !item : item
+  //   )
+  //   props.setCheckedState(updatedCheckedState)
+  // }
+  // console.log(handleCheckChange)
   const rand = Math.floor(Math.random() * props.notesBucket.length)
   const allNotes = ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#']
   const interval = ''
@@ -100,12 +100,58 @@ const Metronome = (props) => {
 
   return (
     <>
-      <RandomNote counter={props.counter} measures={props.measures} currentNote={currentNote} randomNote={randomNote} setRandomNote={setRandomNote}/>
-      <div className = "notes">{props.notesBucket.join(' ').toUpperCase()}</div>
-      <div><BpmDisplay tempo={props.tempo}></BpmDisplay></div>
-      <div><TempoSlider onChange={props.slideTempo} className="tempo-settings" tempo={props.tempo} decreaseTempo={props.decreaseTempo} increaseTempo={props.increaseTempo}></TempoSlider></div>
-      <div><Measures className="measures" counter={props.counter} measures={props.measures} increaseBeats={props.increaseBeats} decreaseBeats={props.decreaseBeats}></Measures></div>
-      <div><StartStop toggleTimer={props.toggleTimer} total = {props.total} active={props.active}/></div>
+      <RandomNote
+        counter={props.counter}
+        measures={props.measures}
+        currentNote={currentNote}
+        randomNote={randomNote}
+        setRandomNote={setRandomNote}
+        user={props.user}
+        setMeasures={props.setMeasures}
+        notesBucket={props.notesBucket}
+        tempo={props.tempo}
+        setTempo={props.setTempo}
+        setCheckedState={props.setCheckedState}
+        checkedState={props.checkedState}
+        msgAlert={props.msgAlert}
+        presets={props.presets}
+        setPresets={props.setPresets}
+        presetIndex={props.presetIndex}
+        setPresetIndex={props.setPresetIndex}
+        presetName={props.presetName}
+        setPresetName={props.setPresetName}
+      />
+      <div>
+        <TempoSlider
+          onChange={props.slideTempo}
+          className='tempo-settings'
+          tempo={props.tempo}
+          decreaseTempo={props.decreaseTempo}
+          increaseTempo={props.increaseTempo}></TempoSlider>
+      </div>
+      <div className="column">
+        <div>
+          <BpmDisplay tempo={props.tempo}></BpmDisplay>
+        </div>
+        <div>
+          <Measures
+            className='measures'
+            counter={props.counter}
+            measures={props.measures}
+            increaseBeats={props.increaseBeats}
+            decreaseBeats={props.decreaseBeats}></Measures>
+        </div>
+        <div className='counter flex-item'>count: {props.total}</div>
+        <div>
+          <StartStop
+            toggleTimer={props.toggleTimer}
+            total={props.total}
+            active={props.active}
+            counter={props.counter}
+          />
+          <div></div>
+        </div>
+      </div>
     </>
   )
 }

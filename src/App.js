@@ -172,26 +172,33 @@ const App = () => {
       </main>
       <div className='parent'>
         {checkedState}
-        <div className='home'>
+        <div className='flex-container column'>
           <Metronome
-            className='metronome'
-            setTempo={setTempo}
-            setMeasures={setMeasures}
-            tempo={tempo}
+            user={user}
             measures={measures}
+            setMeasures={setMeasures}
+            notesBucket={notesBucket}
+            tempo={tempo}
+            setTempo={setTempo}
+            counter={counter}
+            setCheckedState={setCheckedState}
+            checkedState={checkedState}
+            msgAlert={msgAlert}
+            presets={presets}
+            setPresets={setPresets}
+            presetIndex={presetIndex}
+            setPresetIndex={setPresetIndex}
+            presetName={presetName}
+            setPresetName={setPresetName}
+            className='metronome'
             decreaseTempo={decreaseTempo}
             increaseTempo={increaseTempo}
             increaseBeats={increaseBeats}
             decreaseBeats={decreaseBeats}
             slideTempo={slideTempo}
             toggleTimer={toggleTimer}
-            user={user}
-            counter={counter}
             setCounter={setCounter}
-            notesBucket={notesBucket}
             setNotesBucket={setNotesBucket}
-            checkedState={checkedState}
-            setCheckedState={setCheckedState}
             total={total}
             setTotal={setTotal}
             active={active}></Metronome>

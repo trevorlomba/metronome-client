@@ -57,6 +57,7 @@ const NotesForm = (props) => {
     setPresetIndex(0)
   }
 
+  // eslint-disable-next-line no-unused-vars
   const handleSubmit = (event) => {
     event.preventDefault()
     const current = {
@@ -130,32 +131,33 @@ const NotesForm = (props) => {
     })
     return (arr.splice(0, arr.length - 0))
   }
+
   return (
     <>
-      <container className="settings">
-        <form className="form" onSubmit={handleSubmit}>
-          {/* {presetsList} */}
-          <div>
-            {allNotes.map(({ name }, index) => {
-              return (
-                <>
-                  {props.presets}
-                  <input key={index}
-                    className="checks"
-                    type="checkbox"
-                    id={`custom-checkbox-${index}`}
-                    name={allNotes[index]}
-                    value={allNotes[index]}
-                    checked={props.checkedState[index]}
-                    onChange={() => handleCheckChange(index, allNotes[index])}
-                  />
-                  <label htmlFor={`custom-checkbox-${index}`}>{allNotes[index].toUpperCase()}{' '}</label>
-                </>
-              )
-            })}
-          </div>
-        </form>
-      </container>
+      {/* <form className="form" onSubmit={handleSubmit}> */}
+      {/* {presetsList} */}
+      <div>
+        {allNotes.map(({ name }, index) => {
+          return (
+            <>
+              {props.presets}
+              <span
+                key={index}
+                className={`checks noteSelection ${props.notesBucket.includes(allNotes[index]) ? 'active' : 'inactive'}`}
+                type='checkbox'
+                id={`custom-checkbox-${index}`}
+                name={allNotes[index]}
+                value={allNotes[index]}
+                checked={props.checkedState[index]}
+                onClick={() => handleCheckChange(index, allNotes[index])}
+                htmlFor={`custom-checkbox-${index}`}>
+                {allNotes[index].toUpperCase()}{' '}
+              </span>
+            </>
+          )
+        })}
+      </div>
+      {/* </form> */}
     </>
   )
 }

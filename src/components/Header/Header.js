@@ -14,7 +14,7 @@ const authenticatedOptions = (
 
 const unauthenticatedOptions = (
   <>
-    <NavLink to='/settings' className='nav-link'>Settings</NavLink>
+    {/* <NavLink to='/settings' className='nav-link'>Settings</NavLink> */}
     <NavLink to='/sign-up' className='nav-link'>Sign Up</NavLink>
     <NavLink to='/sign-in' className='nav-link'>Sign In</NavLink>
   </>
