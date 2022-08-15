@@ -29,6 +29,8 @@ const App = () => {
   const [presetIndex, setPresetIndex] = useState(0)
   const [presetName, setPresetName] = useState('default')
 
+  const backgroundImage = React.lazy(() => import('./assets/wood.jpg'))
+
   const clearUser = () => setUser(null)
 
   const msgAlert = ({ heading, message, variant }) => {
@@ -170,7 +172,11 @@ const App = () => {
           />
         </Routes>
       </main>
-      <div className='parent'>
+      <div
+        className='parent'
+        style={{
+          backgroundImage: `url(${backgroundImage}`
+        }}>
         {checkedState}
         <div className='flex-container column'>
           <Metronome

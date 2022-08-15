@@ -85,6 +85,13 @@ const Metronome = (props) => {
   }, [props.active])
 
   useEffect(() => {
+    if (props.notesBucket.length > 0) {
+      setRandomNote(props.notesBucket[rand])
+      setCurrentNote(randomNote)
+    }
+  }, [props.notesBucket])
+
+  useEffect(() => {
     let i
     console.log(i)
     const arr = []

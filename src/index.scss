@@ -7,14 +7,28 @@
 }
 
 body {
+    min-height: 100vh;
     user-select: none;
-    background-color: rgb(49, 102, 246)
-}
+    background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 .parent {
     // align-items: center;
-    height: 80vh;
+    min-height: 95vh;
+    background-color: rgb(49, 102, 246);
+    // height: 80vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
+.flex-container {
+    // height: 80vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
 
 .home {
