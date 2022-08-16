@@ -9,8 +9,8 @@ const NotesForm = (props) => {
   const [presets, setPresets] = useState([])
   const [presetIndex, setPresetIndex] = useState(0)
   const [presetName, setPresetName] = useState('default')
-  const arr = []
-  console.log(arr)
+  // const arr = []
+  // console.log(arr)
   const allNotes = ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#']
   const loadAllPresets = (user) => {
     try {

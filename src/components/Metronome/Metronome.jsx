@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { Howl } from 'howler'
 
@@ -26,6 +27,7 @@ const Metronome = (props) => {
   const [currentNote, setCurrentNote] = useState(props.notesBucket[Math.floor(Math.random() * 12)])
   const [randomNote, setRandomNote] = useState(props.notesBucket[Math.floor(Math.random() * 12)])
   const [first, setFirst] = useState(true)
+  // eslint-disable-next-line no-unused-vars
   const noteTones = {
     a: aTone,
     'a#': aSharpTone,
@@ -50,6 +52,9 @@ const Metronome = (props) => {
   const rand = Math.floor(Math.random() * props.notesBucket.length)
   const allNotes = ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#']
   const interval = ''
+  let lag = ''
+  let expected = Date.now() - (60000 / props.tempo)
+
   useEffect((interval) => {
     if (props.notesBucket.length > 0) {
       if (props.counter === props.measures) {
@@ -61,22 +66,32 @@ const Metronome = (props) => {
           setCurrentNote(randomNote)
           const randomNoteString = randomNote.toString()
           const AudioPlay = new Howl({ src: [noteTones[randomNoteString]] })
-          console.log(randomNoteString)
+          // console.log(randomNoteString)
           AudioPlay.play()
         }
       } else if (props.active) {
+        lag = Date.now() - expected - (60000 / props.tempo)
+        // console.log(Date.now())
+        // console.log(expected)
+        // console.log(Date.now() - expected)
+        // console.log(lag)
         interval = setInterval(() => {
           props.setTotal(props.total + 1)
           props.setCounter(props.counter + 1)
           const AudioPlay = new Howl({ src: [click3] })
           AudioPlay.play()
-        }, 60000 / props.tempo)
+        }, 60000 / props.tempo - lag)
+        // }, 60000 / props.tempo)
+        // console.log(setExpected(Date.now() + (60000 / props.tempo - lag)))
       }
       return () => {
         clearInterval(interval)
+        expected = Date.now() + 60000 / props.tempo
+        // console.log(expected)
       }
     }
   }
+  // }, [!lag, !interval]
   )
 
   useEffect(() => {
