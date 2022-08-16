@@ -151,7 +151,7 @@ const Metronome = (props) => {
           decreaseTempo={props.decreaseTempo}
           increaseTempo={props.increaseTempo}></TempoSlider>
       </div>
-      <div className="column">
+      <div className='column'>
         <div>
           <BpmDisplay tempo={props.tempo}></BpmDisplay>
         </div>
@@ -163,7 +163,8 @@ const Metronome = (props) => {
             increaseBeats={props.increaseBeats}
             decreaseBeats={props.decreaseBeats}></Measures>
         </div>
-        <div className='counter flex-item'>count: {props.total}</div>
+        <div className='counter flex-item'>count: {(props.total % props.measures) + 1}
+        </div>
         <div>
           <StartStop
             toggleTimer={props.toggleTimer}
@@ -171,7 +172,6 @@ const Metronome = (props) => {
             active={props.active}
             counter={props.counter}
           />
-          <div></div>
         </div>
       </div>
     </>
