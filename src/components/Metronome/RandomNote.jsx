@@ -1,9 +1,15 @@
 import React from 'react'
 import NotesForm from '../Presets/NotesForm'
+// import LoginForm from './Login'
 
 const RandomNote = (props) => {
+  // const onSubmit = (event, username, password) => {
+  //   // event.preventDefault()
+  //   console.log('onSubmitRan!')
+  // }
   return (
     <>
+      {/* <LoginForm onSubmit = {onSubmit}></LoginForm> */}
       <div className='notes-walk'>
         {props.currentNote.toUpperCase()} {'/ '}
         {props.randomNote.toUpperCase()}
